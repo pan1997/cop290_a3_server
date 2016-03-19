@@ -1,6 +1,8 @@
 package cop290.web;
 
 import java.io.IOException;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,14 +27,22 @@ public class Logout extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getOutputStream().println("Logout sucessfull");
+		JsonObject result= Json.createObjectBuilder()
+				.add("success",true)
+				.build();
+		response.setContentType("application/json");
+		response.getOutputStream().print(result.toString());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getOutputStream().println("POSTING not allowed");
+		JsonObject result= Json.createObjectBuilder()
+				.add("success",true)
+				.build();
+		response.setContentType("application/json");
+		response.getOutputStream().print(result.toString());
 	}
 
 }
