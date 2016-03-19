@@ -1,7 +1,6 @@
 package cop290.web;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -10,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Login
@@ -23,7 +21,6 @@ public class Login extends HttpServlet {
      */
     public Login() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public void init() {
