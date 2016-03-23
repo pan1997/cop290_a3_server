@@ -14,35 +14,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/logout")
 public class Logout extends HttpServlet {
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Logout() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		JsonObject result= Json.createObjectBuilder()
-				.add("success",true)
+		JsonObject result = Json.createObjectBuilder()
+				.add("success", true)
 				.build();
 		response.setContentType("application/json");
 		response.getOutputStream().print(result.toString());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		JsonObject result= Json.createObjectBuilder()
-				.add("success",true)
-				.build();
-		response.setContentType("application/json");
-		response.getOutputStream().print(result.toString());
+		doGet(request, response);
 	}
-
 }

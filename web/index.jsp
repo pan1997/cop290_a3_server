@@ -18,7 +18,7 @@
         }
         nav {
             background-color: white;
-            height: 50px;
+            height: 25px;
         }
         nav a {
             margin-top: 50px;
@@ -26,8 +26,32 @@
     </style>
     <body>
         <nav>
-            <a href="/login.html">Login</a>
+            <a href="/index.jsp?login">Login</a>
             <a href="/logout">Logout</a>
+            <a href="/index.jsp?submit">Submit</a>
+            <a href="/complaints/institute">Institute</a>
+            <a href="/complaints/individual">Individual</a>
+            <a href="/complaints/hostel">Hostel</a>
         </nav>
+        <%  if(request.getParameter("login")!=null){%>
+        <form action="login" method="POST">
+            Username:<input type="text" name="username">
+            <br/>
+            Password:<input type="password" name="password">
+            <br/>
+            <input type="submit" value="Login">
+        </form>
+        <%}%>
+        <%  if(request.getParameter("submit")!=null){%>
+        <form action="/complaints/submit" method="GET">
+            Title:<input type="text" name="title">
+            <br/>
+            Detail:<input type="text" name="detail">
+            <br/>
+            Level:<input type="text" name="level">
+            <br/>
+            <input type="submit" value="Submit">
+        </form>
+        <%}%>
     </body>
 </html>

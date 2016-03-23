@@ -15,10 +15,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/login")
 public class Login extends HttpServlet {
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public Login() {
         super();
     }
@@ -26,9 +22,6 @@ public class Login extends HttpServlet {
     public void init() {
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String name = request.getParameter("username");
@@ -40,17 +33,14 @@ public class Login extends HttpServlet {
                     .build();
             response.setContentType("application/json");
             response.getOutputStream().print(result.toString());
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
             throw e;
         }
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
+        doGet(request, response);
     }
 }
