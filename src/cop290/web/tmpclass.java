@@ -25,6 +25,7 @@ public class tmpclass {
         }
     }
     private static final String server="jdbc:mysql://localhost/cop290db";
+    /*
     public static void main(String argv[])throws Exception{
         //System.out.println(dbClassName);
         //Class.forName(dbClassName
@@ -50,19 +51,35 @@ public class tmpclass {
         stmt.close();
         c.close();
     }
+    */
     static JsonObject getUserJson(String login,String pass)throws SQLException {
         Connection conn = ds.getConnection();
         Statement stmt = conn.createStatement();
         System.out.println("SELECT * FROM Users WHERE login='" + login + "' AND password='" + pass + "'");
         ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE login='" + login + "' AND password='" + pass + "'");
-        JsonObject result = rs.next() ?
-                Json.createObjectBuilder().add("user_id", rs.getInt("user_id"))
-                        .add("first_name", rs.getString("first_name"))
-                        .add("last_name", rs.getString("last_name"))
-                        .add("entry_number", rs.getString("entry_number"))
-                        .build() : null;
+        JsonObject result;
+        if(rs.next()) {
+            String ren = rs.getString("entry_number");
+            result =
+                    Json.createObjectBuilder().add("user_id", rs.getInt("user_id"))
+                            .add("first_name", rs.getString("first_name"))
+                            .add("last_name", rs.getString("last_name"))
+                            .add("entry_number", ren == null ? "" : ren)
+                            .add("group_id",rs.getInt("group_id"))
+                            .add("department_id",rs.getInt("department_id"))
+                            .add("hostel_id",rs.getInt("hostel_id"))
+                            .build();
+        }else result=null;
         stmt.close();
         conn.close();
         return result;
+    }
+    static JsonObject getComplaint(ResultSet rs) throws SQLException{
+        return Json.createObjectBuilder()
+                .add("complaint_id",rs.getInt("complaint_id"))
+                .add("user_id",rs.getInt("user_id"))
+                .add("title",rs.getString("title"))
+                .add("discription",rs.getString("discritption"))
+                .build();
     }
 }

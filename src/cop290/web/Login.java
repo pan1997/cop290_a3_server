@@ -10,23 +10,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Login
  */
 @WebServlet("/login")
 public class Login extends HttpServlet {
-    public Login() {
-        super();
-    }
-    public void init() {
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String name = request.getParameter("username");
             String password = request.getParameter("password");
+            HttpSession session=request.getSession();
             JsonObject user=tmpclass.getUserJson(name,password);
+            if(user!=null)
+                session.setAttribute("user",user);
             JsonObject result = Json.createObjectBuilder()
                     .add("success", user!=null)
                     .add("user",user==null?Json.createObjectBuilder().build():user)

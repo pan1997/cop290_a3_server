@@ -20,6 +20,7 @@ CREATE TABLE Users(
   group_id int,
   first_name VARCHAR(255),
   last_name VARCHAR(255),
+  login VARCHAR(255),
   password VARCHAR(255),
   department_id int,
   hostel_id int,
@@ -84,10 +85,10 @@ INSERT INTO Departments VALUES (0,'Computer Science','CSE');
 INSERT INTO Hostels VALUES (0,'Udaigiri');
 INSERT INTO Hostels VALUES (1,'Vindhyachal');
 INSERT INTO Hostels VALUES (2,'Residential');
-INSERT INTO Users VALUES (0,0,'Pankaj','Kumar','cop290',0,0,'2014CS10245');
-INSERT INTO Users VALUES (1,3,'Rishubh','Singh','prqesf',0,1,'2014CS50293');
-INSERT INTO Users VALUES (2,2,'Kritarth','','pspspdf',0,0,'2014CS10230');
-INSERT INTO Users VALUES (3,1,'Vinay','Riberio','password',0,2,NULL );
+INSERT INTO Users VALUES (0,0,'Pankaj','Kumar','pankaj','cop290',0,0,'2014CS10245');
+INSERT INTO Users VALUES (1,3,'Rishubh','Singh','2014CS50293','prqesf',0,1,'2014CS50293');
+INSERT INTO Users VALUES (2,2,'Kritarth','','kritarth','pspspdf',0,0,'2014CS10230');
+INSERT INTO Users VALUES (3,1,'Vinay','Riberio','vinay','password',0,2,NULL );
 
 INSERT INTO Complaints VALUES (0,1,'LAN Access after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
 INSERT INTO Complaints VALUES (1,2,'Broken Fan','Repair the fan in room number WF11','2016-02-11 13:23:34','2016-03-11 13:23:34',0,2);

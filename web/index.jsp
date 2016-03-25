@@ -1,4 +1,5 @@
-<%@ page import="cop290.web.tmpclass" %><%--
+<%@ page import="cop290.web.tmpclass" %>
+<%@ page import="javax.json.JsonObject" %><%--
   Created by IntelliJ IDEA.
   User: pankaj
   Date: 18/3/16
@@ -11,6 +12,7 @@
     tmpclass.init();
 %>
 <html>
+    <meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
     <head>
         <title>IITD Complaint</title>
     </head>
@@ -35,6 +37,9 @@
             <a href="complaints/institute">Institute</a>
             <a href="complaints/individual">Individual</a>
             <a href="complaints/hostel">Hostel</a>
+            <% JsonObject user=(JsonObject)request.getSession().getAttribute("user");if(user!=null){%>
+            Logged in as <%=user.getString("first_name")%>
+            <%}%>
         </nav>
         <%  if(request.getParameter("login")!=null){%>
         <form action="login" method="POST">
