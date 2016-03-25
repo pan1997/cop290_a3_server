@@ -21,7 +21,7 @@ public class ErrorHandlingServlet extends HttpServlet {
         sop.print("Internal Server error occured<br>");
         Throwable th = (Throwable) request.getAttribute("javax.servlet.error.exception");
         sop.print(th == null ? "NULL" : th.toString());
-        sop.print("<br><a href=\"/index.jsp\">Home</a>");
+        sop.print("<br><a href=\"index.jsp\">Home</a>");
         sop.print("</body></html>");
     }
 

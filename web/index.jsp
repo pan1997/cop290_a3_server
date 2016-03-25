@@ -1,4 +1,4 @@
-<%--
+<%@ page import="cop290.web.tmpclass" %><%--
   Created by IntelliJ IDEA.
   User: pankaj
   Date: 18/3/16
@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+<%
+    tmpclass.init();
+%>
 <html>
     <head>
         <title>IITD Complaint</title>
@@ -26,12 +29,12 @@
     </style>
     <body>
         <nav>
-            <a href="/index.jsp?login">Login</a>
-            <a href="/logout">Logout</a>
-            <a href="/index.jsp?submit">Submit</a>
-            <a href="/complaints/institute">Institute</a>
-            <a href="/complaints/individual">Individual</a>
-            <a href="/complaints/hostel">Hostel</a>
+            <a href="index.jsp?login">Login</a>
+            <a href="logout">Logout</a>
+            <a href="index.jsp?submit">Submit</a>
+            <a href="complaints/institute">Institute</a>
+            <a href="complaints/individual">Individual</a>
+            <a href="complaints/hostel">Hostel</a>
         </nav>
         <%  if(request.getParameter("login")!=null){%>
         <form action="login" method="POST">

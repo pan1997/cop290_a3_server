@@ -1,6 +1,7 @@
 package cop290.web;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -18,7 +19,6 @@ public class Login extends HttpServlet {
     public Login() {
         super();
     }
-
     public void init() {
     }
 
@@ -26,14 +26,18 @@ public class Login extends HttpServlet {
         try {
             String name = request.getParameter("username");
             String password = request.getParameter("password");
+            JsonObject user=tmpclass.getUserJson(name,password);
             JsonObject result = Json.createObjectBuilder()
-                    .add("success", true)
-                    .add("user", name == null ? "NULL" : name)
-                    .add("password", password == null ? "NULL" : password)
+                    .add("success", user!=null)
+                    .add("user",user==null?Json.createObjectBuilder().build():user)
                     .build();
             response.setContentType("application/json");
             response.getOutputStream().print(result.toString());
-        } catch (Exception e) {
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
             throw e;

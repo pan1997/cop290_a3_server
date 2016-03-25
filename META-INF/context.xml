@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/project" reloadable="true">
+    <Resource auth="Container"
+              defaultReadOnly="false"
+              driverClassName="com.mysql.jdbc.Driver"
+              factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+              initialSize="0"
+              jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"
+              jmxEnabled="true"
+              logAbandoned="true"
+              maxActive="300" maxIdle="50"
+              maxWait="10000"
+              minEvictableIdleTimeMillis="300000"
+              minIdle="30"
+              name="jdbc/cop290db"
+              password="cop290@pankaj"
+              removeAbandoned="true"
+              removeAbandonedTimeout="60"
+              testOnBorrow="true"
+              testOnReturn="false"
+              testWhileIdle="true"
+              timeBetweenEvictionRunsMillis="30000"
+              type="javax.sql.DataSource"
+              url="jdbc:mysql://localhost/cop290db"
+              username="cop290"
+              validationInterval="30000"
+              validationQuery="SELECT 1"/>
+</Context>
