@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <%
     tmpclass.init();
+    request.getSession().setAttribute("web",true);
 %>
 <html>
 <meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
@@ -11,17 +12,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="style.css">
-    <script src='jquery.min.js'></script>
-    <script src="index.js"></script>
+    <link rel="stylesheet" href="styles.css">
     <title>IITD Complaint</title>
 </head>
 <body>
 <div id='cssmenu'>
     <ul>
-        <li><a href="index.jsp?login">Login</a></li>
+        <li><a href="index.jsp">Home</a></li>
+        <% JsonObject user=(JsonObject)request.getSession().getAttribute("user");
+            if(user!=null){%>
+        <li><a href="logout"><%=user.getString("first_name")%></a></li>
         <li><a href="logout">Logout</a></li>
+        <%}else{%>
+        <li><a href="index.jsp?login">Login</a></li>
+        <%}%>
         <li><a href="index.jsp?submit">Submit</a></li>
         <li><a href="complaints/institute">Institute</a></li>
         <li><a href="complaints/individual">Individual</a></li>
@@ -32,16 +37,23 @@
     <div class="container">
         <%  if(request.getParameter("login")!=null){%>
         <h1>Login</h1>
-        <form class="form" action="login" method="POST">
+        <form class="form" action="login" method="POST" onsubmit="window.location.href='index.jsp';return true;">
             <input type="text" placeholder="Username" id="username" name="username" value=""/>
             <input type="password" placeholder="Password" id="password" name="password" value=""/>
             <button type="submit" id="login">Login</button>
         </form>
+        <%  }else if(request.getParameter("submit")!=null){%>
+        <form action="/complaints/submit" method="GET">
+            Title:<input type="text" name="title">
+            <br/>
+            Detail:<input type="text" name="detail">
+            <br/>
+            Level:<input type="text" name="level">
+            <br/>
+            <input type="submit" value="Submit">
+        </form>
         <%}else{%>
         <h1>Welcome to IITD Complaints Resolving Cell</h1>
-        <% JsonObject user=(JsonObject)request.getSession().getAttribute("user");if(user!=null){%>
-        <h2>Logged in as <%=user.getString("first_name")%></h2>
-        <%}%>
         <%}%>
     </div>
 
@@ -58,18 +70,6 @@
         <li></li>
     </ul>
 </div>
-
-<%  if(request.getParameter("submit")!=null){%>
-<form action="/complaints/submit" method="GET">
-    Title:<input type="text" name="title">
-    <br/>
-    Detail:<input type="text" name="detail">
-    <br/>
-    Level:<input type="text" name="level">
-    <br/>
-    <input type="submit" value="Submit">
-</form>
-<%}%>
 
 </body>
 </html>

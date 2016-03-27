@@ -29,8 +29,12 @@ public class Login extends HttpServlet {
                     .add("success", user!=null)
                     .add("user",user==null?Json.createObjectBuilder().build():user)
                     .build();
-            response.setContentType("application/json");
-            response.getOutputStream().print(result.toString());
+            if(session.getAttribute("web")!=null){
+                response.sendRedirect("index.jsp");
+            }else {
+                response.setContentType("application/json");
+                response.getOutputStream().print(result.toString());
+            }
         }
         catch (SQLException e){
             e.printStackTrace();
