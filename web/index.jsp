@@ -1,65 +1,75 @@
 <%@ page import="cop290.web.tmpclass" %>
-<%@ page import="javax.json.JsonObject" %><%--
-  Created by IntelliJ IDEA.
-  User: pankaj
-  Date: 18/3/16
-  Time: 12:03 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="javax.json.JsonObject" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <%
     tmpclass.init();
 %>
 <html>
-    <meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
-    <head>
-        <title>IITD Complaint</title>
-    </head>
-    <style>
-        body {
-            background-color: #dddddd;
-            margin: 0px;
-        }
-        nav {
-            background-color: white;
-            height: 25px;
-        }
-        nav a {
-            margin-top: 50px;
-        }
-    </style>
-    <body>
-        <nav>
-            <a href="index.jsp?login">Login</a>
-            <a href="logout">Logout</a>
-            <a href="index.jsp?submit">Submit</a>
-            <a href="complaints/institute">Institute</a>
-            <a href="complaints/individual">Individual</a>
-            <a href="complaints/hostel">Hostel</a>
-            <% JsonObject user=(JsonObject)request.getSession().getAttribute("user");if(user!=null){%>
-            Logged in as <%=user.getString("first_name")%>
-            <%}%>
-        </nav>
+<meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script src='jquery.min.js'></script>
+    <script src="index.js"></script>
+    <title>IITD Complaint</title>
+</head>
+<body>
+<div id='cssmenu'>
+    <ul>
+        <li><a href="index.jsp?login">Login</a></li>
+        <li><a href="logout">Logout</a></li>
+        <li><a href="index.jsp?submit">Submit</a></li>
+        <li><a href="complaints/institute">Institute</a></li>
+        <li><a href="complaints/individual">Individual</a></li>
+        <li><a href="complaints/hostel">Hostel</a></li>
+    </ul>
+</div>
+<div class="wrapper">
+    <div class="container">
         <%  if(request.getParameter("login")!=null){%>
-        <form action="login" method="POST">
-            Username:<input type="text" name="username">
-            <br/>
-            Password:<input type="password" name="password">
-            <br/>
-            <input type="submit" value="Login">
+        <h1>Login</h1>
+        <form class="form" action="login" method="POST">
+            <input type="text" placeholder="Username" id="username" name="username" value=""/>
+            <input type="password" placeholder="Password" id="password" name="password" value=""/>
+            <button type="submit" id="login">Login</button>
         </form>
+        <%}else{%>
+        <h1>Welcome to IITD Complaints Resolving Cell</h1>
+        <% JsonObject user=(JsonObject)request.getSession().getAttribute("user");if(user!=null){%>
+        <h2>Logged in as <%=user.getString("first_name")%></h2>
         <%}%>
-        <%  if(request.getParameter("submit")!=null){%>
-        <form action="/complaints/submit" method="GET">
-            Title:<input type="text" name="title">
-            <br/>
-            Detail:<input type="text" name="detail">
-            <br/>
-            Level:<input type="text" name="level">
-            <br/>
-            <input type="submit" value="Submit">
-        </form>
         <%}%>
-    </body>
+    </div>
+
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+<%  if(request.getParameter("submit")!=null){%>
+<form action="/complaints/submit" method="GET">
+    Title:<input type="text" name="title">
+    <br/>
+    Detail:<input type="text" name="detail">
+    <br/>
+    Level:<input type="text" name="level">
+    <br/>
+    <input type="submit" value="Submit">
+</form>
+<%}%>
+
+</body>
 </html>
