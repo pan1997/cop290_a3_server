@@ -74,7 +74,7 @@ public class tmpclass {
         conn.close();
         return result;
     }
-    static JsonObject getComplaint(ResultSet rs) throws SQLException{
+    static JsonObject getComplaintSummary(ResultSet rs) throws SQLException{
         return Json.createObjectBuilder()
                 .add("complaint_id",rs.getInt("complaint_id"))
                 .add("user_id",rs.getInt("user_id"))

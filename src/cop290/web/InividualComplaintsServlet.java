@@ -18,7 +18,7 @@ import java.sql.Statement;
 /**
  * Created by pankaj on 23/3/16.
  */
-@WebServlet("/complaints/individual")
+@WebServlet(urlPatterns = "/complaints/individual",name="Individual Level Complaints")
 public class InividualComplaintsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
@@ -33,7 +33,7 @@ public class InividualComplaintsServlet extends HttpServlet {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM Complaints WHERE user_id='" + user.getInt("user_id") + "' AND level=2");
                 JsonArrayBuilder jb = Json.createArrayBuilder();
                 while (rs.next())
-                    jb.add(tmpclass.getComplaint(rs));
+                    jb.add(tmpclass.getComplaintSummary(rs));
                 JsonArray lst = jb.build();
                 stmt.close();
                 conn.close();

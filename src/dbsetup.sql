@@ -1,4 +1,4 @@
-
+CREATE DATABASE cop290db;
 CREATE TABLE Hostels(
   hostel_id int,
   name VARCHAR(255),
@@ -77,6 +77,10 @@ CREATE TABLE Downvotes(
   FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
+CREATE UNIQUE INDEX UPC ON Upvotes(complaint_id, user_id);
+CREATE UNIQUE INDEX UPC ON Downvotes(complaint_id, user_id);
+
+
 INSERT INTO User_Groups VALUES (0,'admin');
 INSERT INTO User_Groups VALUES (1,'faculty');
 INSERT INTO User_Groups VALUES (2,'btech');
@@ -91,8 +95,12 @@ INSERT INTO Users VALUES (2,2,'Kritarth','','kritarth','pspspdf',0,0,'2014CS1023
 INSERT INTO Users VALUES (3,1,'Vinay','Riberio','vinay','password',0,2,NULL );
 
 INSERT INTO Complaints VALUES (0,1,'LAN Access after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
+INSERT INTO Complaints VALUES (5,2,'tgrtvrtgAN Access after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
+INSERT INTO Complaints VALUES (6,1,'LAN Acceykkukyyyukss after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
 INSERT INTO Complaints VALUES (1,2,'Broken Fan','Repair the fan in room number WF11','2016-02-11 13:23:34','2016-03-11 13:23:34',0,2);
-INSERT INTO Complaints VALUES (2,2,'Mess food is shit','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
+INSERT INTO Complaints VALUES (2,2,'Mess food is shit in Ud','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
+INSERT INTO Complaints VALUES (3,1,'Mess food is shit in VD','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
+INSERT INTO Complaints VALUES (4,3,'Mess food is shit everywhere','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
 
 INSERT INTO Comments VALUES (0,0,1,'Seconded','2016-04-22');
 INSERT INTO Upvotes VALUES (0,0);

@@ -8,7 +8,7 @@
               jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"
               jmxEnabled="true"
               logAbandoned="true"
-              maxActive="300" maxIdle="50"
+              maxActive="500" maxIdle="50"
               maxWait="10000"
               minEvictableIdleTimeMillis="300000"
               minIdle="30"

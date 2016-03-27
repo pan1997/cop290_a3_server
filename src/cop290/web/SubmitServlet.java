@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by pankaj on 23/3/16.
  */
-@WebServlet("/complaints/submit")
+@WebServlet(urlPatterns = "/complaints/submit",name="Submit")
 public class SubmitServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JsonObject result = Json.createObjectBuilder()
