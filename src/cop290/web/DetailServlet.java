@@ -104,12 +104,10 @@ public class DetailServlet extends HttpServlet {
                         } catch (SQLException s) {
                             s.printStackTrace();
                         }
-
                     } else
-                        response.sendError(403,"Access Denied");
-                }
-                else {
-                    response.sendError(404,"Complaint contFound");
+                        response.sendError(403, "Access Denied");
+                } else {
+                    response.sendError(404, "Complaint contFound");
                 }
                 rs.close();
                 smt.close();
