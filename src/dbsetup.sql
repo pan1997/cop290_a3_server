@@ -1,22 +1,21 @@
-CREATE DATABASE cop290db;
 CREATE TABLE Hostels(
-  hostel_id int,
+  hostel_id int AUTO_INCREMENT,
   name VARCHAR(255),
   PRIMARY KEY (hostel_id)
 );
 CREATE TABLE Departments(
-  department_id int,
+  department_id int AUTO_INCREMENT,
   name VARCHAR(255),
   code VARCHAR(5),
   PRIMARY KEY (department_id)
 );
 CREATE TABLE User_Groups(
-  group_id int,
+  group_id int AUTO_INCREMENT,
   name VARCHAR(255),
   PRIMARY KEY (group_id)
 );
 CREATE TABLE Users(
-  user_id int,
+  user_id int AUTO_INCREMENT,
   group_id int,
   first_name VARCHAR(255),
   last_name VARCHAR(255),
@@ -43,7 +42,7 @@ CREATE TABLE Head_of_Departments(
   FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 CREATE TABLE Complaints(
-  complaint_id int,
+  complaint_id int AUTO_INCREMENT,
   user_id int,
   title VARCHAR(255),
   discritption VARCHAR(255),
@@ -55,7 +54,7 @@ CREATE TABLE Complaints(
   FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 CREATE TABLE Comments(
-  comment_id int,
+  comment_id int AUTO_INCREMENT,
   user_id int,
   complaint_id int,
   detail VARCHAR(255),
@@ -78,30 +77,33 @@ CREATE TABLE Downvotes(
 );
 
 CREATE UNIQUE INDEX UPC ON Upvotes(complaint_id, user_id);
-CREATE UNIQUE INDEX UPC ON Downvotes(complaint_id, user_id);
+CREATE UNIQUE INDEX DPC ON Downvotes(complaint_id, user_id);
 
 
-INSERT INTO User_Groups VALUES (0,'admin');
-INSERT INTO User_Groups VALUES (1,'faculty');
-INSERT INTO User_Groups VALUES (2,'btech');
-INSERT INTO User_Groups VALUES (3,'mtech');
-INSERT INTO Departments VALUES (0,'Computer Science','CSE');
-INSERT INTO Hostels VALUES (0,'Udaigiri');
-INSERT INTO Hostels VALUES (1,'Vindhyachal');
-INSERT INTO Hostels VALUES (2,'Residential');
-INSERT INTO Users VALUES (0,0,'Pankaj','Kumar','pankaj','cop290',0,0,'2014CS10245');
-INSERT INTO Users VALUES (1,3,'Rishubh','Singh','2014CS50293','prqesf',0,1,'2014CS50293');
-INSERT INTO Users VALUES (2,2,'Kritarth','','kritarth','pspspdf',0,0,'2014CS10230');
-INSERT INTO Users VALUES (3,1,'Vinay','Riberio','vinay','password',0,2,NULL );
+INSERT INTO User_Groups(name) VALUES ('admin');
+INSERT INTO User_Groups(name) VALUES ('faculty');
+INSERT INTO User_Groups(name) VALUES ('btech');
+INSERT INTO User_Groups(name) VALUES ('mtech');
+INSERT INTO Departments(name, code) VALUES ('Computer Science','CSE');
+INSERT INTO Hostels(name) VALUES ('Udaigiri');
+INSERT INTO Hostels(name) VALUES ('Vindhyachal');
+INSERT INTO Hostels(name) VALUES ('Residential');
+INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES (1,'Pankaj','Kumar','pankaj','cop290',1,1,'2014CS10245');
+INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES (4,'Rishubh','Singh','2014CS50293','prqesf',1,2,'2014CS50293');
+INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES (3,'Kritarth','','kritarth','pspspdf',1,1,'2014CS10230');
+INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES (2,'Vinay','Riberio','vinay','password',1,3,NULL );
 
-INSERT INTO Complaints VALUES (0,1,'LAN Access after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
-INSERT INTO Complaints VALUES (5,2,'tgrtvrtgAN Access after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
-INSERT INTO Complaints VALUES (6,1,'LAN Acceykkukyyyukss after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
-INSERT INTO Complaints VALUES (1,2,'Broken Fan','Repair the fan in room number WF11','2016-02-11 13:23:34','2016-03-11 13:23:34',0,2);
-INSERT INTO Complaints VALUES (2,2,'Mess food is shit in Ud','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
-INSERT INTO Complaints VALUES (3,1,'Mess food is shit in VD','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
-INSERT INTO Complaints VALUES (4,3,'Mess food is shit everywhere','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
+INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES (2,'LAN Access after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
+INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES (3,'tgrtvrtgAN Access after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
+INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES (2,'LAN Acceykkukyyyukss after 1:00am','Allow the same','2016-03-11 13:23:34','2016-03-11 13:23:34',0,0);
+INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES (3,'Broken Fan','Repair the fan in room number WF11','2016-02-11 13:23:34','2016-03-11 13:23:34',0,2);
+INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES (3,'Mess food is shit in Ud','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
+INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES (2,'Mess food is shit in VD','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
+INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES (4,'Mess food is shit everywhere','??????????????','2016-02-20 13:23:34','2016-05-11 13:23:34',0,0);
 
-INSERT INTO Comments VALUES (0,0,1,'Seconded','2016-04-22');
-INSERT INTO Upvotes VALUES (0,0);
-INSERT INTO Upvotes VALUES (0,1);
+INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (1,2,'Seconded',NOW());
+INSERT INTO Upvotes VALUES (1,2);
+INSERT INTO Upvotes VALUES (1,3);
+INSERT INTO Upvotes VALUES (1,4);
+INSERT INTO Upvotes VALUES (2,2);
+INSERT INTO Upvotes VALUES (2,4);

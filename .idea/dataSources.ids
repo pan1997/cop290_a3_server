@@ -21,7 +21,7 @@
       <column id="12" parent="2" name="comment_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
+        <sequence-identity>1</sequence-identity>
       </column>
       <column id="13" parent="2" name="user_id">
         <data-type>int(11)</data-type>
@@ -58,7 +58,7 @@
       <column id="21" parent="3" name="complaint_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
+        <sequence-identity>1</sequence-identity>
       </column>
       <column id="22" parent="3" name="user_id">
         <data-type>int(11)</data-type>
@@ -98,7 +98,7 @@
       <column id="32" parent="4" name="department_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
+        <sequence-identity>1</sequence-identity>
       </column>
       <column id="33" parent="4" name="name">
         <data-type>varchar(255)</data-type>
@@ -116,7 +116,7 @@
       <column id="37" parent="5" name="user_id">
         <data-type>int(11)</data-type>
       </column>
-      <index id="38" parent="5" name="UPC">
+      <index id="38" parent="5" name="DPC">
         <columns>complaint_id
 user_id</columns>
         <desc-columns></desc-columns>
@@ -126,10 +126,10 @@ user_id</columns>
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="40" parent="5" name="UPC">
+      <key id="40" parent="5" name="DPC">
         <columns>complaint_id
 user_id</columns>
-        <underlying-index>UPC</underlying-index>
+        <underlying-index>DPC</underlying-index>
       </key>
       <foreign-key id="41" parent="5" name="Downvotes_ibfk_1">
         <columns>complaint_id</columns>
@@ -198,7 +198,7 @@ user_id</columns>
       <column id="55" parent="8" name="hostel_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
+        <sequence-identity>1</sequence-identity>
       </column>
       <column id="56" parent="8" name="name">
         <data-type>varchar(255)</data-type>
@@ -243,7 +243,7 @@ user_id</columns>
       <column id="65" parent="10" name="group_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
+        <sequence-identity>1</sequence-identity>
       </column>
       <column id="66" parent="10" name="name">
         <data-type>varchar(255)</data-type>
@@ -255,7 +255,7 @@ user_id</columns>
       <column id="68" parent="11" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
+        <sequence-identity>1</sequence-identity>
       </column>
       <column id="69" parent="11" name="group_id">
         <data-type>int(11)</data-type>
