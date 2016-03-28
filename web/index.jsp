@@ -32,6 +32,7 @@
         <li><a href="index.jsp?content=institute">Institute</a></li>
         <li><a href="index.jsp?content=individual">Individual</a></li>
         <li><a href="index.jsp?content=hostel">Hostel</a></li>
+        <li><a href="index.jsp?search">Search</a></li>
     </ul>
 </div>
 <div class="wrapper">
@@ -50,6 +51,12 @@
             Detail:<input type="text" name="detail">
             Level:<input type="text" name="level">
             <button type="submit" id="submit">Submit</button>
+        </form>
+        <%}else if(request.getParameter("search")!=null){%>
+        <h1>Search for Complaints</h1>
+        <form action="/search" method="GET">
+            Search:<input type="text" name="query">
+            <button type="search" id="search">Search</button>
         </form>
         <%}else{%>
         <h1>Welcome to IITD Complaints Resolving Cell</h1>
