@@ -29,13 +29,14 @@
         <li><a href="index.jsp?login">Login</a></li>
         <%}%>
         <li><a href="index.jsp?submit">Submit</a></li>
-        <li><a href="#" onclick="display('complaints/institute');">Institute</a></li>
-        <li><a href="#" onclick="display('complaints/individual');">Individual</a></li>
-        <li><a href="#" onclick="display('complaints/hostel');">Hostel</a></li>
+        <li><a href="index.jsp?content=institute">Institute</a></li>
+        <li><a href="index.jsp?content=individual">Individual</a></li>
+        <li><a href="index.jsp?content=hostel">Hostel</a></li>
     </ul>
 </div>
 <div class="wrapper">
     <div class="container">
+        <%if(request.getParameter("content")==null){%>
         <%  if(request.getParameter("login")!=null){%>
         <h1>Login</h1>
         <form class="form" action="login" method="POST" onsubmit="window.location.href='index.jsp';return true;">
@@ -55,6 +56,9 @@
         </form>
         <%}else{%>
         <h1>Welcome to IITD Complaints Resolving Cell</h1>
+        <%}}else{%>
+        <iframe src="complaints/<%=request.getParameter("content")%>">
+        </iframe>
         <%}%>
     </div>
 
