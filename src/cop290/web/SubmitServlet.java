@@ -1,6 +1,5 @@
 package cop290.web;
 
-import javax.json.Json;
 import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,26 +8,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
 
-/**
- * Created by pankaj on 23/3/16.
- */
 @WebServlet(urlPatterns = "/complaints/submit",name="Submit")
 public class SubmitServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            Connection c = tmpclass.ds.getConnection();
+            Statement smt = c.createStatement();
+            String title = request.getParameter("title");
+            String detail = request.getParameter("detail");
+            String level = request.getParameter("level");
             HttpSession session=request.getSession();
-            JsonObject user=(JsonObject)session.getAttribute("user");
+            JsonObject user = (JsonObject) session.getAttribute("user");
+            response.setContentType("application/json");
+            smt.execute("INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+"NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
 
-            JsonObject result=null;
-
-            if(session.getAttribute("web")!=null){
-                response.sendRedirect("index.jsp");
-            }else {
-                response.setContentType("application/json");
-                response.getOutputStream().println(""+response);
-            }
+            smt.close();
+            c.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
         }
         catch (Exception e) {
             System.out.println(e);

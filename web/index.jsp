@@ -47,12 +47,9 @@
         <%  }else if(request.getParameter("submit")!=null){%>
         <form action="/complaints/submit" method="GET">
             Title:<input type="text" name="title">
-            <br/>
             Detail:<input type="text" name="detail">
-            <br/>
             Level:<input type="text" name="level">
-            <br/>
-            <input type="submit" value="Submit">
+            <button type="submit" id="submit">Submit</button>
         </form>
         <%}else{%>
         <h1>Welcome to IITD Complaints Resolving Cell</h1>

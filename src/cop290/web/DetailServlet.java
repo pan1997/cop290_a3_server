@@ -98,7 +98,7 @@ public class DetailServlet extends HttpServlet {
                                         break;
                                     case "comment":
                                         String cmnt = request.getParameter("comment");
-                                        smt.execute("INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (" + user.getInt("user_id") + "," + complaintId + "," + cmnt + ",NOW())");
+                                        smt.execute("INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (" + user.getInt("user_id") + "," + complaintId + ",'" + cmnt + "',NOW())");
                                 }
                             }
                         } catch (SQLException s) {
