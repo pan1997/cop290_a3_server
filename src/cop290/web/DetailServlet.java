@@ -103,7 +103,11 @@ public class DetailServlet extends HttpServlet {
                                         smt.execute("INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (" + user.getInt("user_id") + "," + complaintId + ",'" + cmnt + "',NOW())");
                                 }
                             }
-                            if(action) response.sendRedirect("/complaints/details/"+complaintId);
+                            if(action){
+                                smt.close();
+                                c.close();
+                                response.sendRedirect("/complaints/details/"+complaintId);
+                            }
                         } catch (SQLException s) {
                             s.printStackTrace();
                         }
