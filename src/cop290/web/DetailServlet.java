@@ -14,14 +14,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Enumeration;
 
-/**
- * Created by pankaj on 23/3/16.
- */
 @WebServlet(name = "Complaint Details",urlPatterns = "/complaints/details/*")
 public class DetailServlet extends HttpServlet {
     /*
      * Servlet parameters
-     * title,tags,detail,lavel,...
+     * title,tags,detail,level,...
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -104,6 +101,7 @@ public class DetailServlet extends HttpServlet {
                                         smt.execute("INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (" + user.getInt("user_id") + "," + complaintId + ",'" + cmnt + "',NOW())");
                                 }
                             }
+                            if(request.getParameterNames().hasMoreElements()) response.sendRedirect("/complaints/details/"+complaintId);
                         } catch (SQLException s) {
                             s.printStackTrace();
                         }
