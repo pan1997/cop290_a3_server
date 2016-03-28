@@ -13,6 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <script src="script1.js"></script>
     <link rel="stylesheet" href="styles.css">
     <title>IITD Complaint</title>
 </head>
@@ -28,9 +29,9 @@
         <li><a href="index.jsp?login">Login</a></li>
         <%}%>
         <li><a href="index.jsp?submit">Submit</a></li>
-        <li><a href="complaints/institute">Institute</a></li>
-        <li><a href="complaints/individual">Individual</a></li>
-        <li><a href="complaints/hostel">Hostel</a></li>
+        <li><a href="#" onclick="display('complaints/institute');">Institute</a></li>
+        <li><a href="#" onclick="display('complaints/individual');">Individual</a></li>
+        <li><a href="#" onclick="display('complaints/hostel');">Hostel</a></li>
     </ul>
 </div>
 <div class="wrapper">
