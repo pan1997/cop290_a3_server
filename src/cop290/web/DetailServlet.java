@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -68,6 +70,14 @@ public class DetailServlet extends HttpServlet {
                 }
                 ResultSet rs = smt.executeQuery("SELECT Complaints.*,Users.hostel_id,Users.first_name,Users.last_name FROM Complaints INNER JOIN Users ON Complaints.user_id = Users.user_id WHERE complaint_id=" + complaintId);
                 if (rs.next()) {
+                    String imageLoc=rs.getString("image");
+                    String img=null;
+                    if(imageLoc!=null&&!imageLoc.equals("NULL")){
+                        FileInputStream file=new FileInputStream(img);
+                        byte[] tmp=new byte[file.available()];
+                        int n=file.read(tmp);
+                        img=new String(tmp);
+                    }
                     JsonObject complaint = Json.createObjectBuilder()
                             .add("user_id", rs.getInt("user_id"))
                             .add("name",rs.getString("first_name")+" "+rs.getString("last_name"))
@@ -76,6 +86,7 @@ public class DetailServlet extends HttpServlet {
                             .add("date_submitted", rs.getString("date_submitted"))
                             .add("level", rs.getInt("level"))
                             .add("resolved", rs.getInt("status") != 0)
+                            .add("image",img==null?"NULL":img)
                             .add("upvotes", upvotes)
                             .add("downvotes", downvotes)
                             .add("comments", jbl)
