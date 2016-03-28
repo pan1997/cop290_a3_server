@@ -43,28 +43,31 @@ public class DetailServlet extends HttpServlet {
                     complaintId = complaintId.substring(0, complaintId.indexOf('?'));
             }
             System.out.println("ComplaintID " + complaintId);
+            JsonArrayBuilder jbl = Json.createArrayBuilder();
             try {
                 Connection c = tmpclass.ds.getConnection();
                 Statement smt = c.createStatement();
+                boolean action=request.getParameterMap().size()>0;
                 int upvotes = 0, downvotes = 0;
-                ResultSet upvc = smt.executeQuery("SELECT COUNT(*) AS cnt FROM Upvotes WHERE complaint_id=" + complaintId);
-                if (upvc.next())
-                    upvotes = upvc.getInt("cnt");
-                upvc.close();
-                upvc = smt.executeQuery("SELECT COUNT(*) AS cnt FROM Downvotes WHERE complaint_id=" + complaintId);
-                if (upvc.next())
-                    downvotes = upvc.getInt("cnt");
-                upvc.close();
-                JsonArrayBuilder jbl = Json.createArrayBuilder();
-                ResultSet cmnta = smt.executeQuery("SELECT * FROM Comments WHERE complaint_id=" + complaintId);
-                while (cmnta.next()) {
-                    JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-                    jsonObjectBuilder.add("user_id", cmnta.getInt("user_id"))
-                            .add("detail", cmnta.getString("detail"))
-                            .add("date", cmnta.getString("date_commented"));
-                    jbl.add(jsonObjectBuilder.build());
+                if(!action) {
+                    ResultSet upvc = smt.executeQuery("SELECT COUNT(*) AS cnt FROM Upvotes WHERE complaint_id=" + complaintId);
+                    if (upvc.next())
+                        upvotes = upvc.getInt("cnt");
+                    upvc.close();
+                    upvc = smt.executeQuery("SELECT COUNT(*) AS cnt FROM Downvotes WHERE complaint_id=" + complaintId);
+                    if (upvc.next())
+                        downvotes = upvc.getInt("cnt");
+                    upvc.close();
+                    ResultSet cmnta = smt.executeQuery("SELECT * FROM Comments WHERE complaint_id=" + complaintId);
+                    while (cmnta.next()) {
+                        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+                        jsonObjectBuilder.add("user_id", cmnta.getInt("user_id"))
+                                .add("detail", cmnta.getString("detail"))
+                                .add("date", cmnta.getString("date_commented"));
+                        jbl.add(jsonObjectBuilder.build());
+                    }
+                    cmnta.close();
                 }
-                cmnta.close();
                 ResultSet rs = smt.executeQuery("SELECT Complaints.*,Users.hostel_id FROM Complaints INNER JOIN Users ON Complaints.user_id = Users.user_id WHERE complaint_id=" + complaintId);
                 if (rs.next()) {
                     JsonObject complaint = Json.createObjectBuilder()

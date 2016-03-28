@@ -30,7 +30,8 @@ public class HostelComplaintsServlet extends HttpServlet {
             try {
                 Connection conn = tmpclass.ds.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT Complaints.*,Users.hostel_id FROM Complaints INNER JOIN Users ON Complaints.user_id = Users.user_id WHERE Users.hostel_id='" + user.getInt("hostel_id") + "' AND level=1");
+                String st = request.getParameter("resolved");
+                ResultSet rs = stmt.executeQuery("SELECT Complaints.*,Users.hostel_id FROM Complaints INNER JOIN Users ON Complaints.user_id = Users.user_id WHERE Users.hostel_id='" + user.getInt("hostel_id") + "' AND level=1" + (st != null ? " AND Complaints.status=" + st : ""));
                 JsonArrayBuilder jb = Json.createArrayBuilder();
                 while (rs.next())
                     jb.add(tmpclass.getComplaintSummary(rs));

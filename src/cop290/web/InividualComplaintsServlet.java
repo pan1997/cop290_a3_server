@@ -30,8 +30,8 @@ public class InividualComplaintsServlet extends HttpServlet {
             try {
                 Connection conn = tmpclass.ds.getConnection();
                 Statement stmt = conn.createStatement();
-                String st=request.getParameter("resolved");
-                ResultSet rs = stmt.executeQuery("SELECT * FROM Complaints WHERE user_id='" + user.getInt("user_id") + "' AND level=2"+(st!=null?" AND Complaints.status="+st:""));
+                String st = request.getParameter("resolved");
+                ResultSet rs = stmt.executeQuery("SELECT * FROM Complaints WHERE user_id='" + user.getInt("user_id") + "' AND level=2" + (st != null ? " AND Complaints.status=" + st : ""));
                 JsonArrayBuilder jb = Json.createArrayBuilder();
                 while (rs.next())
                     jb.add(tmpclass.getComplaintSummary(rs));
