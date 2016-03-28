@@ -79,6 +79,7 @@ public class tmpclass {
                 .add("complaint_id",rs.getInt("complaint_id"))
                 .add("user_id",rs.getInt("user_id"))
                 .add("title",rs.getString("title"))
+                .add("name",rs.getString("first_name")+" "+rs.getString("last_name"))
                 .add("discription",rs.getString("discritption"))
                 .build();
     }

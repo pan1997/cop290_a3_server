@@ -31,7 +31,7 @@ public class InstituteComplaintsServlet extends HttpServlet {
                 Connection conn = tmpclass.ds.getConnection();
                 Statement stmt = conn.createStatement();
                 String st = request.getParameter("resolved");
-                ResultSet rs = stmt.executeQuery("SELECT * FROM Complaints WHERE level=0" + (st != null ? " AND Complaints.status=" + st : ""));
+                ResultSet rs = stmt.executeQuery("SELECT Complaints.*,Users.first_name,Users.last_name FROM Complaints INNER JOIN Users ON Complaints.user_id = Users.user_id WHERE level=0" + (st != null ? " AND Complaints.status=" + st : ""));
                 JsonArrayBuilder jb = Json.createArrayBuilder();
                 while (rs.next())
                     jb.add(tmpclass.getComplaintSummary(rs));

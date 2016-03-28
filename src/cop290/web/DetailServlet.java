@@ -55,20 +55,22 @@ public class DetailServlet extends HttpServlet {
                     if (upvc.next())
                         downvotes = upvc.getInt("cnt");
                     upvc.close();
-                    ResultSet cmnta = smt.executeQuery("SELECT * FROM Comments WHERE complaint_id=" + complaintId);
+                    ResultSet cmnta = smt.executeQuery("SELECT Comments.*,Users.first_name,Users.last_name FROM Comments INNER JOIN Users ON Comments.user_id = Users.user_id WHERE complaint_id=" + complaintId);
                     while (cmnta.next()) {
                         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
                         jsonObjectBuilder.add("user_id", cmnta.getInt("user_id"))
+                                .add("name",cmnta.getString("first_name")+" "+cmnta.getString("last_name"))
                                 .add("detail", cmnta.getString("detail"))
                                 .add("date", cmnta.getString("date_commented"));
                         jbl.add(jsonObjectBuilder.build());
                     }
                     cmnta.close();
                 }
-                ResultSet rs = smt.executeQuery("SELECT Complaints.*,Users.hostel_id FROM Complaints INNER JOIN Users ON Complaints.user_id = Users.user_id WHERE complaint_id=" + complaintId);
+                ResultSet rs = smt.executeQuery("SELECT Complaints.*,Users.hostel_id,Users.first_name,Users.last_name FROM Complaints INNER JOIN Users ON Complaints.user_id = Users.user_id WHERE complaint_id=" + complaintId);
                 if (rs.next()) {
                     JsonObject complaint = Json.createObjectBuilder()
                             .add("user_id", rs.getInt("user_id"))
+                            .add("name",rs.getString("first_name")+" "+rs.getString("last_name"))
                             .add("title", rs.getString("title"))
                             .add("discritption", rs.getString("discritption"))
                             .add("date_submitted", rs.getString("date_submitted"))
@@ -101,7 +103,7 @@ public class DetailServlet extends HttpServlet {
                                         smt.execute("INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (" + user.getInt("user_id") + "," + complaintId + ",'" + cmnt + "',NOW())");
                                 }
                             }
-                            if(request.getParameterNames().hasMoreElements()) response.sendRedirect("/complaints/details/"+complaintId);
+                            if(action) response.sendRedirect("/complaints/details/"+complaintId);
                         } catch (SQLException s) {
                             s.printStackTrace();
                         }

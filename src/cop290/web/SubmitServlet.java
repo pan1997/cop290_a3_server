@@ -26,18 +26,15 @@ public class SubmitServlet extends HttpServlet {
             JsonObject user = (JsonObject) session.getAttribute("user");
             response.setContentType("application/json");
             smt.execute("INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+"NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
-            ResultSet rs = smt.executeQuery("SELECT COUNT(Complaints.complaint_id) FROM Complaints");
-            int cnt=0;
-            while(rs.next()){
-                cnt = rs.getInt(1);
-            }
-            System.out.println(cnt);
-            response.sendRedirect("/complaints/details/"+Integer.toString(cnt));
+            ResultSet rs = smt.executeQuery("SELECT LAST_INSERT_ID()");
+            rs.next();
+            response.sendRedirect("/complaints/details/"+rs.getInt(1));
             smt.close();
             c.close();
         }
         catch (SQLException e){
             e.printStackTrace();
+            throw new ServletException(e);
         }
         catch (Exception e) {
             System.out.println(e);
