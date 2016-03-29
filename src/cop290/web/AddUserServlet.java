@@ -27,6 +27,7 @@ public class AddUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+
     /*
      * Accepts the GET requests. The accepted GET parameters are
      * @param first_name
@@ -57,15 +58,15 @@ public class AddUserServlet extends HttpServlet {
             try {
                 Connection conn = tmpclass.ds.getConnection();
                 Statement smt = conn.createStatement();
-                boolean success=true;
-                try{
+                boolean success = true;
+                try {
                     smt.execute("INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES " +
-                            "(" + group_id + ",'" + first_name + "','" + last_name + "','" + login + "','" + password + "'," + department_id + "," + hostel_id + ",'" + (entry_number==null?"NULL":entry_number) + "')");
-                }catch (Exception e){
-                    success=false;
+                            "(" + group_id + ",'" + first_name + "','" + last_name + "','" + login + "','" + password + "'," + department_id + "," + hostel_id + ",'" + (entry_number == null ? "NULL" : entry_number) + "')");
+                } catch (Exception e) {
+                    success = false;
                     e.printStackTrace();
                 }
-                JsonObject result=Json.createObjectBuilder().add("SUCCESS",success).build();
+                JsonObject result = Json.createObjectBuilder().add("SUCCESS", success).build();
                 smt.close();
                 conn.close();
                 response.getOutputStream().print(result.toString());
