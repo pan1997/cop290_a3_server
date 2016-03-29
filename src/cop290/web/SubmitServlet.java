@@ -30,6 +30,7 @@ public class SubmitServlet extends HttpServlet {
             String detail = request.getParameter("detail");
             String level = request.getParameter("level");
             String image=request.getParameter("image");
+            String tag_id=request.getParameter("tag_id");
             if(image!=null){
                 try{
                     String fnmae=tmpclass.randomName();
@@ -46,10 +47,15 @@ public class SubmitServlet extends HttpServlet {
             HttpSession session=request.getSession();
             JsonObject user = (JsonObject) session.getAttribute("user");
             response.setContentType("application/json");
-            smt.execute("INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+(image==null?"NULL":image)+",NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
+            smt.execute("INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+(image==null?"NULL":"'"+image+"'")+",NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
             ResultSet rs = smt.executeQuery("SELECT LAST_INSERT_ID()");
+            String cid=""+rs.getInt(1);
+            if(tag_id!=null)
+                smt.execute("INSERT INTO Tag_Association(complaint_id, tag_id) VALUES ("+cid+","+tag_id+")");
             rs.next();
-            response.sendRedirect("/complaints/details/"+rs.getInt(1));
+            smt.close();
+            c.close();
+            response.sendRedirect("/complaints/details/"+cid);
             smt.close();
             c.close();
         }
@@ -65,6 +71,7 @@ public class SubmitServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("POSTED!!!!!!");
         doGet(request, response);
     }
 }

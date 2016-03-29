@@ -84,7 +84,8 @@ public class DetailServlet extends HttpServlet {
                     String imageLoc = rs.getString("image");
                     String img = null;
                     try {
-                        if (imageLoc != null && !imageLoc.equals("NULL")) {
+                        if (imageLoc != null && !imageLoc.equals("NULL")&&!imageLoc.equals("")) {
+                            System.out.println(imageLoc);
                             FileInputStream file = new FileInputStream(imageLoc);
                             byte[] tmp = new byte[file.available()];
                             int n = file.read(tmp);
