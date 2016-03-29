@@ -95,6 +95,7 @@ public class DetailServlet extends HttpServlet {
                         System.err.println("Image read failed");
                         e.printStackTrace();
                     }
+                    int ug=user.getInt("group_id");
                     JsonObject complaint = Json.createObjectBuilder()
                             .add("user_id", rs.getInt("user_id"))
                             .add("name", rs.getString("first_name") + " " + rs.getString("last_name"))
@@ -107,6 +108,7 @@ public class DetailServlet extends HttpServlet {
                             .add("upvotes", upvotes)
                             .add("downvotes", downvotes)
                             .add("comments", jbl)
+                            .add("resolve",ug==1||(rs.getInt("level")==0&&ug==2||(rs.getInt("level")==2&&rs.getInt("user_id")==user.getInt("user_id"))||(rs.getInt("level")==1&&ug==2)))
                             .add("success", true)
                             .build();
                     if (user.getInt("group_id") == 1 || //admin
