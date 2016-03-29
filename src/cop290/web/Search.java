@@ -20,32 +20,29 @@ import java.sql.Statement;
  * Created by kritarth on 28/3/16.
  */
 @WebServlet(urlPatterns = "/search",name="Search")
+
+//This Servlet add the functionality of searching keywords in the Title of the submitted complaints
 public class Search extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            //query string is fetched from the request
             String query = request.getParameter("query");
-            //String[] fst = query.split("\\s+");
+            //session is obtained
             HttpSession session = request.getSession();
+            //user JsonObject is created and obtained from the session
             JsonObject user = (JsonObject) session.getAttribute("user");
+            //content type set for response
             response.setContentType("application/json");
+            //if no user is found logged into session then NO LOGIN response is sent to the client
             if (user == null)
                 response.getOutputStream().print(Json.createObjectBuilder().add("Search Complaints", Json.createArrayBuilder().build()).add("message", "NO LOGIN").build().toString());
+                //else a connection is initiated with the sql database and the query is searched for in the Complaints
             else {
                 Connection c = tmpclass.ds.getConnection();
                 Statement smt = c.createStatement();
                 JsonArrayBuilder jb = Json.createArrayBuilder();
-                //ResultSet rs = smt.executeQuery(";");
-                    /*
-                    for(int i=0; i<fst.length; i++){
-                        System.out.println(fst[i]);
-                        rs = smt.executeQuery("SELECT * FROM Complaints WHERE Complaints.title LIKE '%" + fst[i] +"%';");
-                        while (rs.next())
-                            jb.add(tmpclass.getComplaintSummary(rs));
-                    }
-                    */
-                //ResultSet rs = smt.executeQuery("SELECT * FROM Complaints WHERE Complaints.title LIKE '%" + query +"%';");
                 ResultSet rs = smt.executeQuery("SELECT Complaints.*,Users.hostel_id,Users.first_name,Users.last_name FROM Complaints INNER JOIN Users ON Complaints.user_id = Users.user_id WHERE Complaints.title LIKE '%" + query + "%';");
-
+                //JSONObject is created for all the results found
                 while (rs.next())
                     jb.add(tmpclass.getComplaintSummary(rs));
                 JsonArray lst = jb.build();

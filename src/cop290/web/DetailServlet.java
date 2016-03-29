@@ -121,10 +121,30 @@ public class DetailServlet extends HttpServlet {
                                 String ac = actions.nextElement();
                                 switch (ac) {
                                     case "upvote":
-                                        smt.execute("INSERT INTO Upvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        ResultSet rs1 = smt.executeQuery("SELECT * FROM Downvotes WHERE user_id=" + Integer.toString(user.getInt("user_id")));
+                                        boolean flag=true;
+                                        if((rs1.next())) {
+                                            rs1.previous();
+                                            while (rs1.next())
+                                                if (Integer.toString(rs1.getInt("complaint_id")).equals(complaintId)) flag=false;
+                                            if (flag)
+                                            smt.execute("INSERT INTO Upvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        }else{
+                                            smt.execute("INSERT INTO Upvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        }
                                         break;
                                     case "downvote":
-                                        smt.execute("INSERT INTO Downvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        ResultSet rs2 = smt.executeQuery("SELECT * FROM Upvotes WHERE user_id=" + Integer.toString(user.getInt("user_id")));
+                                        boolean flag2=true;
+                                        if((rs2.next())) {
+                                            rs2.previous();
+                                            while (rs2.next())
+                                                if (Integer.toString(rs2.getInt("complaint_id")).equals(complaintId)) flag2=false;
+                                            if (flag2)
+                                                smt.execute("INSERT INTO Downvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        }else{
+                                            smt.execute("INSERT INTO Downvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        }
                                         break;
                                     case "resolve":
                                         boolean permission = false;
@@ -150,11 +170,20 @@ public class DetailServlet extends HttpServlet {
                                         smt.execute("INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (" + user.getInt("user_id") + "," + complaintId + ",'" + cmnt + "',NOW())");
                                 }
                             }
-                            if (action) {
-                                smt.close();
-                                c.close();
-                                response.sendRedirect("/complaints/details/" + complaintId);
+                            if(session.getAttribute("web")!=null){
+                                if (action) {
+                                    smt.close();
+                                    c.close();
+                                    response.sendRedirect("/complaints/details/" + complaintId);
+                                }
+                            }else {
+                                if (action) {
+                                    smt.close();
+                                    c.close();
+                                    response.sendRedirect("/complaints/details/" + complaintId);
+                                }
                             }
+
                         } catch (SQLException s) {
                             s.printStackTrace();
                         }

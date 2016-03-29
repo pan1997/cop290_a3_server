@@ -39,7 +39,7 @@ public class SubmitServlet extends HttpServlet {
                     FileOutputStream fout=new FileOutputStream(f);
                     fout.write(image.getBytes());
                     fout.close();
-                    image=fnmae;
+                    //image=fnmae;
                 }catch (Exception e){
                     e.printStackTrace();
                 }
