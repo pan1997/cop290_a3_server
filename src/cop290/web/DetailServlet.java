@@ -120,6 +120,8 @@ public class DetailServlet extends HttpServlet {
                                 String ac = actions.nextElement();
                                 switch (ac) {
                                     case "upvote":
+                                        //ResultSet rs1 = smt.executeQuery("SELECT * FROM Downvotes WHERE complaint_id=" + Integer.toString(user.getInt("user_id")) + ")");
+                                        //if(!(rs1.next()))
                                         smt.execute("INSERT INTO Upvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
                                         break;
                                     case "downvote":
@@ -149,11 +151,20 @@ public class DetailServlet extends HttpServlet {
                                         smt.execute("INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (" + user.getInt("user_id") + "," + complaintId + ",'" + cmnt + "',NOW())");
                                 }
                             }
-                            if (action) {
-                                smt.close();
-                                c.close();
-                                response.sendRedirect("/complaints/details/" + complaintId);
+                            if(session.getAttribute("web")!=null){
+                                if (action) {
+                                    smt.close();
+                                    c.close();
+                                    response.sendRedirect("/complaints/details/" + complaintId);
+                                }
+                            }else {
+                                if (action) {
+                                    smt.close();
+                                    c.close();
+                                    response.sendRedirect("/complaints/details/" + complaintId);
+                                }
                             }
+
                         } catch (SQLException s) {
                             s.printStackTrace();
                         }
