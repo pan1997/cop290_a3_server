@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,7 +28,12 @@ public class SubmitServlet extends HttpServlet {
             if(image!=null){
                 try{
                     String fnmae=tmpclass.randomName();
-
+                    File f=new File(fnmae);
+                    //System.out.println(f.getAbsolutePath());
+                    FileOutputStream fout=new FileOutputStream(f);
+                    fout.write(image.getBytes());
+                    fout.close();
+                    image=fnmae;
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -34,7 +41,7 @@ public class SubmitServlet extends HttpServlet {
             HttpSession session=request.getSession();
             JsonObject user = (JsonObject) session.getAttribute("user");
             response.setContentType("application/json");
-            smt.execute("INSERT INTO Complaints(user_id, title, discritption, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+"NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
+            smt.execute("INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+(image==null?"NULL":image)+",NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
             ResultSet rs = smt.executeQuery("SELECT LAST_INSERT_ID()");
             rs.next();
             response.sendRedirect("/complaints/details/"+rs.getInt(1));

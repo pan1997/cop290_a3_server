@@ -28,7 +28,7 @@ public class tmpclass {
         }
     }
     public static String randomName(){
-        return ""+random.nextInt()+random.nextInt()+random.nextInt()+random.nextInt()+random.nextInt()+random.nextInt();
+        return ""+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt());
     }
     private static final String server="jdbc:mysql://localhost/cop290db";
     /*

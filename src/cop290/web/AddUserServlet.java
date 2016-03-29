@@ -15,13 +15,30 @@ import java.sql.Statement;
 
 /**
  * Created by pankaj on 28/3/16.
+ * This Servlet allows the administrator to create new Users.
+ * All the parametesrs can be set here for the new user.
  */
 @WebServlet(name = "AddUserServlet",urlPatterns = "/admin/addUser")
 public class AddUserServlet extends HttpServlet {
+
+    /*
+     * Accepts the post requests. Just passes the requests to doGet
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
-
+    /*
+     * Accepts the GET requests. The accepted GET parameters are
+     * @param first_name
+     * @param last_name
+     * @param login
+     * @param password
+     * @param group_id
+     * @param department_id
+     * @param entry_number
+     * @param hostel_id
+     * returns a JSONObject with a success parameter.
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         HttpSession session = request.getSession();
@@ -40,8 +57,15 @@ public class AddUserServlet extends HttpServlet {
             try {
                 Connection conn = tmpclass.ds.getConnection();
                 Statement smt = conn.createStatement();
-                JsonObject result=Json.createObjectBuilder().add("SUCCESS",smt.execute("INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES " +
-                        "(" + group_id + ",'" + first_name + "','" + last_name + "','" + login + "','" + password + "'," + department_id + "," + hostel_id + ",'" + (entry_number==null?"NULL":entry_number) + "')")).build();
+                boolean success=true;
+                try{
+                    smt.execute("INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES " +
+                            "(" + group_id + ",'" + first_name + "','" + last_name + "','" + login + "','" + password + "'," + department_id + "," + hostel_id + ",'" + (entry_number==null?"NULL":entry_number) + "')");
+                }catch (Exception e){
+                    success=false;
+                    e.printStackTrace();
+                }
+                JsonObject result=Json.createObjectBuilder().add("SUCCESS",success).build();
                 smt.close();
                 conn.close();
                 response.getOutputStream().print(result.toString());

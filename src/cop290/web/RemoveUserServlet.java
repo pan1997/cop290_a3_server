@@ -33,7 +33,14 @@ public class RemoveUserServlet extends HttpServlet {
             try {
                 Connection conn = tmpclass.ds.getConnection();
                 Statement smt = conn.createStatement();
-                JsonObject result=Json.createObjectBuilder().add("SUCCESS",smt.execute("DELETE FROM Users WHERE login='"+login+"'")).build();
+                boolean success=true;
+                try{
+                    smt.execute("DELETE FROM Users WHERE login='"+login+"'");
+                }catch (Exception e){
+                    success=false;
+                    e.printStackTrace();
+                }
+                JsonObject result=Json.createObjectBuilder().add("SUCCESS",success).build();
                 smt.close();
                 conn.close();
                 response.getOutputStream().print(result.toString());

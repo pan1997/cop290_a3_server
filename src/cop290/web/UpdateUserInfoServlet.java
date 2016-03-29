@@ -33,9 +33,14 @@ public class UpdateUserInfoServlet extends HttpServlet {
                 Statement smt=conn.createStatement();
                 //String listOfParams="";
                 if(request.getParameter("password")!=null) {
-
-
-                    response.getOutputStream().print(Json.createObjectBuilder().add("SUCCESS",smt.execute("UPDATE Users SET password='" + request.getParameter("password") + "' WHERE user_id=" + user.getInt("user_id"))).build().toString());
+                    boolean success=true;
+                    try{
+                        smt.execute("UPDATE Users SET password='" + request.getParameter("password") + "' WHERE user_id=" + user.getInt("user_id"));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        success=false;
+                    }
+                    response.getOutputStream().print(Json.createObjectBuilder().add("SUCCESS",success).build().toString());
                 }
                 else response.getOutputStream().print(Json.createObjectBuilder().add("SUCCESS",true).build().toString());
                 //smt.execute("UPDATE Users SET "+" WHERE user_id="+user.getInt("user_id"));

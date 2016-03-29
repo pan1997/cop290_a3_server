@@ -16,6 +16,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Enumeration;
 
+/**
+ * Created by pankaj on 25/3/16.
+ * This Servlet displays the details of the
+ */
 @WebServlet(name = "Complaint Details",urlPatterns = "/complaints/details/*")
 public class DetailServlet extends HttpServlet {
     /*
@@ -72,11 +76,16 @@ public class DetailServlet extends HttpServlet {
                 if (rs.next()) {
                     String imageLoc=rs.getString("image");
                     String img=null;
-                    if(imageLoc!=null&&!imageLoc.equals("NULL")){
-                        FileInputStream file=new FileInputStream(img);
-                        byte[] tmp=new byte[file.available()];
-                        int n=file.read(tmp);
-                        img=new String(tmp);
+                    try {
+                        if (imageLoc != null && !imageLoc.equals("NULL")) {
+                            FileInputStream file = new FileInputStream(imageLoc);
+                            byte[] tmp = new byte[file.available()];
+                            int n = file.read(tmp);
+                            img = new String(tmp);
+                        }
+                    }catch (Exception e){
+                        System.err.println("Image read failed");
+                        e.printStackTrace();
                     }
                     JsonObject complaint = Json.createObjectBuilder()
                             .add("user_id", rs.getInt("user_id"))
