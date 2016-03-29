@@ -20,8 +20,8 @@ import javax.servlet.http.HttpSession;
 public class Login extends HttpServlet {
     /**
      * Accepts the GET request. parameters are
-     * @parameter username
-     * @parameter password
+     * parameter username
+     * parameter password
      * return a json object containing user infromation
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

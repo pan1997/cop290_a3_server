@@ -30,14 +30,14 @@ public class AddUserServlet extends HttpServlet {
 
     /**
      * Accepts the GET requests. The accepted GET parameters are
-     * @parameter first_name
-     * @parameter last_name
-     * @parameter login
-     * @parameter password
-     * @parameter group_id
-     * @parameter department_id
-     * @parameter entry_number
-     * @parameter hostel_id
+     * parameter first_name
+     * parameter last_name
+     * parameter login
+     * parameter password
+     * parameter group_id
+     * parameter department_id
+     * parameter entry_number
+     * parameter hostel_id
      * returns a JSONObject with a success parameter.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

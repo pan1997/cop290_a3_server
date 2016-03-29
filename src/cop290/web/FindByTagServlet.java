@@ -24,7 +24,7 @@ import java.sql.Statement;
 public class FindByTagServlet extends HttpServlet {
     /**
      * Accepts the GET Request. parameters are
-     * @parameter tag_id
+     * parameter tag_id
      * returs the json containg the summaries of the compolaints.
      * Note only the complaints that are visible are shown.
      */
@@ -33,7 +33,7 @@ public class FindByTagServlet extends HttpServlet {
     }
     /**
      * Accepts the GET Request. parameters are
-     * @parameter tag_id
+     * parameter tag_id
      * returs the json containg the summaries of the compolaints.
      * Note only the complaints that are visible are shown.
      */

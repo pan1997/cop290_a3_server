@@ -21,7 +21,7 @@ import java.sql.Statement;
 public class RemoveUserServlet extends HttpServlet {
     /**
      * accepts the post request. parameters are
-     * @parameter login
+     * parameter login
      * return success of the attempt
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,7 +30,7 @@ public class RemoveUserServlet extends HttpServlet {
 
     /**
      * accepts the post request. parameters are
-     * @parameter login
+     * parameter login
      * return success of the attempt
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
