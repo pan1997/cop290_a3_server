@@ -169,6 +169,7 @@ INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date
 INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES (2,'Mess food is shit in VD','??????????????',NULL,'2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
 INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES (4,'Mess food is shit everywhere','??????????????',NULL,'2016-02-20 13:23:34','2016-05-11 13:23:34',0,0);
 
+
 INSERT INTO Tag_Association VALUES (1,3);
 INSERT INTO Tag_Association VALUES (2,3);
 INSERT INTO Tag_Association VALUES (3,4);
