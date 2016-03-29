@@ -57,9 +57,9 @@ public class DetailServlet extends HttpServlet {
             try {
                 Connection c = tmpclass.ds.getConnection();
                 Statement smt = c.createStatement();
-                boolean action=request.getParameterMap().size()>0;
+                boolean action = request.getParameterMap().size() > 0;
                 int upvotes = 0, downvotes = 0;
-                if(!action) {
+                if (!action) {
                     ResultSet upvc = smt.executeQuery("SELECT COUNT(*) AS cnt FROM Upvotes WHERE complaint_id=" + complaintId);
                     if (upvc.next())
                         upvotes = upvc.getInt("cnt");
@@ -72,7 +72,7 @@ public class DetailServlet extends HttpServlet {
                     while (cmnta.next()) {
                         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
                         jsonObjectBuilder.add("user_id", cmnta.getInt("user_id"))
-                                .add("name",cmnta.getString("first_name")+" "+cmnta.getString("last_name"))
+                                .add("name", cmnta.getString("first_name") + " " + cmnta.getString("last_name"))
                                 .add("detail", cmnta.getString("detail"))
                                 .add("date", cmnta.getString("date_commented"));
                         jbl.add(jsonObjectBuilder.build());
@@ -81,8 +81,8 @@ public class DetailServlet extends HttpServlet {
                 }
                 ResultSet rs = smt.executeQuery("SELECT Complaints.*,Users.hostel_id,Users.first_name,Users.last_name FROM Complaints INNER JOIN Users ON Complaints.user_id = Users.user_id WHERE complaint_id=" + complaintId);
                 if (rs.next()) {
-                    String imageLoc=rs.getString("image");
-                    String img=null;
+                    String imageLoc = rs.getString("image");
+                    String img = null;
                     try {
                         if (imageLoc != null && !imageLoc.equals("NULL")) {
                             FileInputStream file = new FileInputStream(imageLoc);
@@ -90,19 +90,19 @@ public class DetailServlet extends HttpServlet {
                             int n = file.read(tmp);
                             img = new String(tmp);
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.err.println("Image read failed");
                         e.printStackTrace();
                     }
                     JsonObject complaint = Json.createObjectBuilder()
                             .add("user_id", rs.getInt("user_id"))
-                            .add("name",rs.getString("first_name")+" "+rs.getString("last_name"))
+                            .add("name", rs.getString("first_name") + " " + rs.getString("last_name"))
                             .add("title", rs.getString("title"))
                             .add("discritption", rs.getString("discritption"))
                             .add("date_submitted", rs.getString("date_submitted"))
                             .add("level", rs.getInt("level"))
                             .add("resolved", rs.getInt("status") != 0)
-                            .add("image",img==null?"NULL":img)
+                            .add("image", img == null ? "NULL" : img)
                             .add("upvotes", upvotes)
                             .add("downvotes", downvotes)
                             .add("comments", jbl)
@@ -126,23 +126,22 @@ public class DetailServlet extends HttpServlet {
                                         smt.execute("INSERT INTO Downvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
                                         break;
                                     case "resolve":
-                                        boolean permission=false;
-                                        if(user.getInt("group_id")==1)
-                                            permission=true;
-                                        else if(complaint.getInt("level")==2&&complaint.getInt("user_id")==user.getInt("user_id"))
-                                            permission=true;
-                                        else if(complaint.getInt("level")==1){
-                                            ResultSet rst=smt.executeQuery("SELECT * FROM Hostel_Wardens " +
+                                        boolean permission = false;
+                                        if (user.getInt("group_id") == 1)
+                                            permission = true;
+                                        else if (complaint.getInt("level") == 2 && complaint.getInt("user_id") == user.getInt("user_id"))
+                                            permission = true;
+                                        else if (complaint.getInt("level") == 1) {
+                                            ResultSet rst = smt.executeQuery("SELECT * FROM Hostel_Wardens " +
                                                     "INNER JOIN Users ON Hostel_Wardens.hostel_id=Users.hostel_id " +
                                                     "INNER JOIN Complaints ON Complaints.user_id=Users.user_id " +
-                                                    "WHERE complaint_id="+complaintId+" AND Hostel_Wardens.user_id="+user.getInt("user_id"));
-                                            if(rs.next())
-                                                permission=true;
-                                        }
-                                        else if(complaint.getInt("level")==0&&user.getInt("group_id")==2)
-                                            permission=true;
-                                        if(permission)
-                                            smt.execute("UPDATE Complaints SET status=1 WHERE complaint_id="+complaintId);
+                                                    "WHERE complaint_id=" + complaintId + " AND Hostel_Wardens.user_id=" + user.getInt("user_id"));
+                                            if (rs.next())
+                                                permission = true;
+                                        } else if (complaint.getInt("level") == 0 && user.getInt("group_id") == 2)
+                                            permission = true;
+                                        if (permission)
+                                            smt.execute("UPDATE Complaints SET status=1 WHERE complaint_id=" + complaintId);
                                         else response.sendError(403);
                                         break;
                                     case "comment":
@@ -150,10 +149,10 @@ public class DetailServlet extends HttpServlet {
                                         smt.execute("INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (" + user.getInt("user_id") + "," + complaintId + ",'" + cmnt + "',NOW())");
                                 }
                             }
-                            if(action){
+                            if (action) {
                                 smt.close();
                                 c.close();
-                                response.sendRedirect("/complaints/details/"+complaintId);
+                                response.sendRedirect("/complaints/details/" + complaintId);
                             }
                         } catch (SQLException s) {
                             s.printStackTrace();
@@ -177,6 +176,7 @@ public class DetailServlet extends HttpServlet {
             }
         }
     }
+
     /*
      * Servlet takes the action to perform(may be multiple) via POST performs the action and then relodas
      * If there are no actions, no relaoding is done.
