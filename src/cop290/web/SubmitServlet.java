@@ -21,6 +21,7 @@ public class SubmitServlet extends HttpServlet {
      * Accepts the get request. Parameters are
      * parameter resolved if 1 then resolved complaints only other wise unresolved
      * if no parameters are passed, all complaints are displayed.
+     *
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
