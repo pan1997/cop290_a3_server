@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name="Logout",urlPatterns = "/logout")
 public class Logout extends HttpServlet {
-    /*
+    /**
      * logs the user out
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class Logout extends HttpServlet {
         }
     }
 
-    /*
+    /**
      * logs the user out
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

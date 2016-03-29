@@ -21,23 +21,23 @@ import java.sql.Statement;
 @WebServlet(name = "AddUserServlet",urlPatterns = "/admin/addUser")
 public class AddUserServlet extends HttpServlet {
 
-    /*
+    /**
      * Accepts the post requests. Just passes the requests to doGet
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
-    /*
+    /**
      * Accepts the GET requests. The accepted GET parameters are
-     * @param first_name
-     * @param last_name
-     * @param login
-     * @param password
-     * @param group_id
-     * @param department_id
-     * @param entry_number
-     * @param hostel_id
+     * @parameter first_name
+     * @parameter last_name
+     * @parameter login
+     * @parameter password
+     * @parameter group_id
+     * @parameter department_id
+     * @parameter entry_number
+     * @parameter hostel_id
      * returns a JSONObject with a success parameter.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

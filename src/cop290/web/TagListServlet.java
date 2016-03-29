@@ -21,14 +21,14 @@ import java.sql.Statement;
  */
 @WebServlet(name = "TagListServlet",urlPatterns = "/tags")
 public class TagListServlet extends HttpServlet {
-    /*
+    /**
      * returns the list of all tags along with tagid
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
-    /*
+    /**
      * returns the list of all tags along with tagid
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

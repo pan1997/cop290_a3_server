@@ -18,10 +18,10 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(urlPatterns = "/login",name="Login")
 public class Login extends HttpServlet {
-    /*
+    /**
      * Accepts the GET request. parameters are
-     * @param username
-     * @param password
+     * @parameter username
+     * @parameter password
      * return a json object containing user infromation
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,10 +52,10 @@ public class Login extends HttpServlet {
         }
     }
 
-    /*
+    /**
      * Accepts the GET request. parameters are
-     * @param username
-     * @param password
+     * @paramter username
+     * @paramter password
      * return a json object containing user infromation
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

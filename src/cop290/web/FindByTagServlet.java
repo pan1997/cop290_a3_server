@@ -22,18 +22,18 @@ import java.sql.Statement;
  */
 @WebServlet(name = "FindByTagServlet",urlPatterns = "/complaints/find_by_tag")
 public class FindByTagServlet extends HttpServlet {
-    /*
+    /**
      * Accepts the GET Request. parameters are
-     * @param tag_id
+     * @parameter tag_id
      * returs the json containg the summaries of the compolaints.
      * Note only the complaints that are visible are shown.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
-    /*
+    /**
      * Accepts the GET Request. parameters are
-     * @param tag_id
+     * @parameter tag_id
      * returs the json containg the summaries of the compolaints.
      * Note only the complaints that are visible are shown.
      */

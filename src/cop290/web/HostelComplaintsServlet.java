@@ -21,9 +21,9 @@ import java.sql.Statement;
  */
 @WebServlet(name="Hostel Level Complaints",urlPatterns = "/complaints/hostel")
 public class HostelComplaintsServlet extends HttpServlet {
-    /*
+    /**
      * Accepts the get request. Parameters are
-     * @param resolved if 1 then resolved complaints only other wise unresolved
+     * @parameter resolved if 1 then resolved complaints only other wise unresolved
      * if no parameters are passed, all complaints are displayed.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,9 +54,9 @@ public class HostelComplaintsServlet extends HttpServlet {
             }
     }
 
-    /*
+    /**
      * Accepts the post request. Parameters are
-     * @param resolved if 1 then resolved complaints only other wise unresolved
+     * @parameter resolved if 1 then resolved complaints only other wise unresolved
      * if no parameters are passed, all complaints are displayed.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

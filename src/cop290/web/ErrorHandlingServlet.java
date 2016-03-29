@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 @WebServlet(urlPatterns = "/error",name="Error Handling Servlet")
 public class ErrorHandlingServlet extends HttpServlet {
-    /*
+    /**
      * Displays the error name and stack trace
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,7 +31,7 @@ public class ErrorHandlingServlet extends HttpServlet {
         sop.print("</body></html>");
     }
 
-    /*
+    /**
      * Displays the error name and stack trace
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

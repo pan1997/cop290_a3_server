@@ -24,7 +24,7 @@ import java.util.Enumeration;
  */
 @WebServlet(name = "Complaint Details",urlPatterns = "/complaints/details/*")
 public class DetailServlet extends HttpServlet {
-    /*
+    /**
      * Servlet takes the action to perform(may be multiple) via GET performs the action and then relodas
      * If there are no actions, no relaoding is done.
      * It displays Comments upvotes and downvotes also.
@@ -177,7 +177,7 @@ public class DetailServlet extends HttpServlet {
         }
     }
 
-    /*
+    /**
      * Servlet takes the action to perform(may be multiple) via POST performs the action and then relodas
      * If there are no actions, no relaoding is done.
      * It displays Comments upvotes and downvotes also.

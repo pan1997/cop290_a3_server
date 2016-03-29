@@ -18,7 +18,7 @@ import java.sql.Statement;
  */
 @WebServlet(name = "UpdateUserInfoServlet",urlPatterns = "/user/update")
 public class UpdateUserInfoServlet extends HttpServlet {
-    /*
+    /**
      * Accepts the get request parameters are the new values
      * return success of the operation
      */
@@ -26,7 +26,7 @@ public class UpdateUserInfoServlet extends HttpServlet {
         doGet(request,response);
     }
 
-    /*
+    /**
      * Accepts the get request parameters are the new values
      * return success of the operation
      */

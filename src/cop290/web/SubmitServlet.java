@@ -17,9 +17,9 @@ import java.sql.ResultSet;
 
 @WebServlet(urlPatterns = "/complaints/submit",name="Submit")
 public class SubmitServlet extends HttpServlet {
-    /*
+    /**
      * Accepts the get request. Parameters are
-     * @param resolved if 1 then resolved complaints only other wise unresolved
+     * @parameter resolved if 1 then resolved complaints only other wise unresolved
      * if no parameters are passed, all complaints are displayed.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

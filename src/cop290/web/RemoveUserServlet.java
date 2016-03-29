@@ -19,18 +19,18 @@ import java.sql.Statement;
  */
 @WebServlet(name = "RemoveUserServlet",urlPatterns = "/admin/removeUser")
 public class RemoveUserServlet extends HttpServlet {
-    /*
+    /**
      * accepts the post request. parameters are
-     * @param login
+     * @parameter login
      * return success of the attempt
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
-    /*
+    /**
      * accepts the post request. parameters are
-     * @param login
+     * @parameter login
      * return success of the attempt
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

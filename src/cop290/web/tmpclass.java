@@ -30,33 +30,7 @@ public class tmpclass {
         return ""+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt());
     }
     private static final String server="jdbc:mysql://localhost/cop290db";
-    /*
-    public static void main(String argv[])throws Exception{
-        //System.out.println(dbClassName);
-        //Class.forName(dbClassName
-        //DataSource ds=(DataSource)inc.lookup("java:comp/env/jdbc/cop290db");
-        //DataSource ds=(DataSource)inc.lookup(server);
-        Properties p=new Properties();
-        p.put("user","cop290");
-        p.put("password","cop290@pankaj");
-        //Connection c= DriverManager.getConnection(server,p);
-        Connection c=ds.getConnection("cop290","cop290@pankaj");
-        System.out.println("Working");
-        Statement stmt=c.createStatement();
-        ResultSet rs=stmt.executeQuery("SELECT * FROM Users");
-        while(rs.next()){
-            System.out.println("user_id: "+rs.getInt("user_id"));
-            System.out.println("group_id: "+rs.getInt("user_id"));
-            System.out.println("First Name: "+rs.getString("first_name"));
-            System.out.println("Second Name: "+rs.getString("last_name"));
-            System.out.println("Entry Number: "+rs.getString("entry_number"));
-            System.out.println();
-        }
-        rs.close();
-        stmt.close();
-        c.close();
-    }
-    */
+
     static JsonObject getUserJson(String login,String pass)throws SQLException {
         Connection conn = ds.getConnection();
         Statement stmt = conn.createStatement();
