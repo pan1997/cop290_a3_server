@@ -38,7 +38,7 @@ public class SubmitServlet extends HttpServlet {
                     FileOutputStream fout=new FileOutputStream(f);
                     fout.write(image.getBytes());
                     fout.close();
-                    image=fnmae;
+                    //image=fnmae;
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -46,7 +46,7 @@ public class SubmitServlet extends HttpServlet {
             HttpSession session=request.getSession();
             JsonObject user = (JsonObject) session.getAttribute("user");
             response.setContentType("application/json");
-            smt.execute("INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+(image==null?"NULL":image)+",NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
+            smt.execute("INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+(image==null?"NULL":"'"+image+"'")+",NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
             ResultSet rs = smt.executeQuery("SELECT LAST_INSERT_ID()");
             rs.next();
             response.sendRedirect("/complaints/details/"+rs.getInt(1));

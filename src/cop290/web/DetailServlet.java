@@ -120,12 +120,30 @@ public class DetailServlet extends HttpServlet {
                                 String ac = actions.nextElement();
                                 switch (ac) {
                                     case "upvote":
-                                        //ResultSet rs1 = smt.executeQuery("SELECT * FROM Downvotes WHERE complaint_id=" + Integer.toString(user.getInt("user_id")) + ")");
-                                        //if(!(rs1.next()))
-                                        smt.execute("INSERT INTO Upvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        ResultSet rs1 = smt.executeQuery("SELECT * FROM Downvotes WHERE user_id=" + Integer.toString(user.getInt("user_id")));
+                                        boolean flag=true;
+                                        if((rs1.next())) {
+                                            rs1.previous();
+                                            while (rs1.next())
+                                                if (Integer.toString(rs1.getInt("complaint_id")).equals(complaintId)) flag=false;
+                                            if (flag)
+                                            smt.execute("INSERT INTO Upvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        }else{
+                                            smt.execute("INSERT INTO Upvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        }
                                         break;
                                     case "downvote":
-                                        smt.execute("INSERT INTO Downvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        ResultSet rs2 = smt.executeQuery("SELECT * FROM Upvotes WHERE user_id=" + Integer.toString(user.getInt("user_id")));
+                                        boolean flag2=true;
+                                        if((rs2.next())) {
+                                            rs2.previous();
+                                            while (rs2.next())
+                                                if (Integer.toString(rs2.getInt("complaint_id")).equals(complaintId)) flag2=false;
+                                            if (flag2)
+                                                smt.execute("INSERT INTO Downvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        }else{
+                                            smt.execute("INSERT INTO Downvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
+                                        }
                                         break;
                                     case "resolve":
                                         boolean permission = false;
