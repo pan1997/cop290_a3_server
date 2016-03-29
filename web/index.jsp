@@ -62,7 +62,7 @@
         <%}else{%>
         <h1>Welcome to IITD Complaints Resolving Cell</h1>
         <%}}else{%>
-        <iframe src="complaints/<%=request.getParameter("content")%>">
+        <iframe src="complaints/<%=request.getParameter("content")%>" height="100%" width="100%">
         </iframe>
         <%}%>
     </div>
