@@ -168,6 +168,7 @@ INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date
 INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES (3,'Mess food is shit in Ud','??????????????',NULL,'2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
 INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES (2,'Mess food is shit in VD','??????????????',NULL,'2016-02-20 13:23:34','2016-05-11 13:23:34',0,1);
 INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES (4,'Mess food is shit everywhere','??????????????',NULL,'2016-02-20 13:23:34','2016-05-11 13:23:34',0,0);
+
 INSERT INTO Tag_Association VALUES (1,3);
 INSERT INTO Tag_Association VALUES (2,3);
 INSERT INTO Tag_Association VALUES (3,4);
@@ -175,11 +176,15 @@ INSERT INTO Tag_Association VALUES (4,2);
 INSERT INTO Tag_Association VALUES (5,1);
 INSERT INTO Tag_Association VALUES (6,1);
 INSERT INTO Tag_Association VALUES (7,1);
+
 INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (2,7,'True',NOW());
 INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (1,2,'Seconded',NOW());
+
 INSERT INTO Upvotes VALUES (1,2);
 INSERT INTO Upvotes VALUES (1,3);
 INSERT INTO Upvotes VALUES (1,4);
 INSERT INTO Upvotes VALUES (2,2);
 INSERT INTO Upvotes VALUES (2,4);
+
+#for GCM
 INSERT INTO User_Follow(user_id, complaint_id) VALUES (3,4);
