@@ -6,17 +6,20 @@ import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import java.sql.*;
 import java.util.Properties;
+import java.util.Random;
 
 /**
  * Created by pankaj on 25/3/16.
  */
 public class tmpclass {
     static InitialContext initialContext;
+    static Random random;
     static DataSource ds;
     private static boolean init=true;
     public static void init(){
         if(init)
         try {
+            random=new Random();
             initialContext=new InitialContext();
             ds=(DataSource)initialContext.lookup("java:/comp/env/jdbc/cop290db");
         }catch (Exception e){

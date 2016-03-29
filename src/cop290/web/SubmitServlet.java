@@ -22,6 +22,12 @@ public class SubmitServlet extends HttpServlet {
             String title = request.getParameter("title");
             String detail = request.getParameter("detail");
             String level = request.getParameter("level");
+            String image=request.getParameter("image");
+            if(image!=null){
+                try{
+                    String fnmae=tmpclass.random.
+                }
+            }
             HttpSession session=request.getSession();
             JsonObject user = (JsonObject) session.getAttribute("user");
             response.setContentType("application/json");

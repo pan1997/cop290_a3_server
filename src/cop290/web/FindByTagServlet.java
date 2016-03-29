@@ -41,9 +41,11 @@ public class FindByTagServlet extends HttpServlet {
                 ResultSet rs;
                 if(user.getInt("group_id")==1)
                     rs=smt.executeQuery("SELECT Complaints.*,Users.first_name,Users.last_name FROM Complaints INNER JOIN Tag_Association ON Complaints.complaint_id = Tag_Association.complaint_id INNER JOIN Users ON Users.user_id=Complaints.user_id WHERE tag_id="+tag_id);
-                else
-                    rs=smt.executeQuery("SELECT Complaints.*,Users.first_name,Users.last_name FROM Complaints INNER JOIN Tag_Association ON Complaints.complaint_id = Tag_Association.complaint_id INNER JOIN Users ON Users.user_id=Complaints.user_id WHERE tag_id="+tag_id+" AND IF(Complaints.level=0,1,IF(Complaints.level=1 AND Users.hostel_id="+user.getInt("hostel_id")+",1,IF(Complaints.level=2 AND Complaints.user_id="+user.getInt("user_id")+")))=1");
-                JsonArrayBuilder jb = Json.createArrayBuilder();
+                else {
+                    System.out.println("SELECT Complaints.*,Users.first_name,Users.last_name FROM Complaints INNER JOIN Tag_Association ON Complaints.complaint_id = Tag_Association.complaint_id INNER JOIN Users ON Users.user_id=Complaints.user_id WHERE tag_id="+tag_id+" AND IF(Complaints.level=0,1,IF(Complaints.level=1 AND Users.hostel_id="+user.getInt("hostel_id")+",1,IF(Complaints.level=2 AND Complaints.user_id="+user.getInt("user_id")+")))=1");
+                    rs = smt.executeQuery("SELECT Complaints.*,Users.first_name,Users.last_name FROM Complaints INNER JOIN Tag_Association ON Complaints.complaint_id = Tag_Association.complaint_id INNER JOIN Users ON Users.user_id=Complaints.user_id WHERE tag_id=" + tag_id + " AND IF(Complaints.level=0,1,IF(Complaints.level=1 AND Users.hostel_id=" + user.getInt("hostel_id") + ",1,IF(Complaints.level=2 AND Complaints.user_id=" + user.getInt("user_id") + ",1,0)))=1");
+
+                }JsonArrayBuilder jb = Json.createArrayBuilder();
                 while (rs.next())
                     jb.add(tmpclass.getComplaintSummary(rs));
                 JsonArray lst = jb.build();
