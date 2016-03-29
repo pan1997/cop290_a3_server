@@ -13,40 +13,51 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Created by pankaj on 19/3/16
  * Servlet implementation class Login
  */
 @WebServlet(urlPatterns = "/login",name="Login")
 public class Login extends HttpServlet {
+    /*
+     * Accepts the GET request. parameters are
+     * @param username
+     * @param password
+     * return a json object containing user infromation
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String name = request.getParameter("username");
             String password = request.getParameter("password");
-            System.out.println("Attempting Login via "+name+" "+password);
-            HttpSession session=request.getSession();
-            JsonObject user=tmpclass.getUserJson(name,password);
-            if(user!=null)
-                session.setAttribute("user",user);
+            System.out.println("Attempting Login via " + name + " " + password);
+            HttpSession session = request.getSession();
+            JsonObject user = tmpclass.getUserJson(name, password);
+            if (user != null)
+                session.setAttribute("user", user);
             JsonObject result = Json.createObjectBuilder()
-                    .add("success", user!=null)
-                    .add("user",user==null?Json.createObjectBuilder().build():user)
+                    .add("success", user != null)
+                    .add("user", user == null ? Json.createObjectBuilder().build() : user)
                     .build();
-            if(session.getAttribute("web")!=null){
+            if (session.getAttribute("web") != null) {
                 response.sendRedirect("index.jsp");
-            }else {
+            } else {
                 response.setContentType("application/json");
                 response.getOutputStream().print(result.toString());
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
             throw e;
         }
     }
 
+    /*
+     * Accepts the GET request. parameters are
+     * @param username
+     * @param password
+     * return a json object containing user infromation
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }

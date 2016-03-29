@@ -17,6 +17,11 @@ import java.sql.ResultSet;
 
 @WebServlet(urlPatterns = "/complaints/submit",name="Submit")
 public class SubmitServlet extends HttpServlet {
+    /*
+     * Accepts the get request. Parameters are
+     * @param resolved if 1 then resolved complaints only other wise unresolved
+     * if no parameters are passed, all complaints are displayed.
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Connection c = tmpclass.ds.getConnection();
@@ -24,16 +29,16 @@ public class SubmitServlet extends HttpServlet {
             String title = request.getParameter("title");
             String detail = request.getParameter("detail");
             String level = request.getParameter("level");
-            String image = request.getParameter("image");
-            ResultSet rs = smt.executeQuery("SELECT LAST_INSERT_ID()");
-            rs.next();
+            String image=request.getParameter("image");
             if(image!=null){
                 try{
-                    File f=new File(Integer.toString(rs.getInt(1)));
+                    String fnmae=tmpclass.randomName();
+                    File f=new File(fnmae);
                     //System.out.println(f.getAbsolutePath());
                     FileOutputStream fout=new FileOutputStream(f);
                     fout.write(image.getBytes());
                     fout.close();
+                    image=fnmae;
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -41,8 +46,8 @@ public class SubmitServlet extends HttpServlet {
             HttpSession session=request.getSession();
             JsonObject user = (JsonObject) session.getAttribute("user");
             response.setContentType("application/json");
-            smt.execute("INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+(image==null?"NULL":Integer.toString(rs.getInt(1)))+",NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
-            rs = smt.executeQuery("SELECT LAST_INSERT_ID()");
+            smt.execute("INSERT INTO Complaints(user_id, title, discritption, image, date_submitted, date_resolved, status, level) VALUES(" + user.getInt("user_id") + ",'"+ title +"','"+ detail+"',"+(image==null?"NULL":image)+",NOW(),"+"NULL,"+0+","+Integer.parseInt(level)+")");
+            ResultSet rs = smt.executeQuery("SELECT LAST_INSERT_ID()");
             rs.next();
             response.sendRedirect("/complaints/details/"+rs.getInt(1));
             smt.close();

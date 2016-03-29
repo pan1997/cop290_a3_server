@@ -13,7 +13,7 @@
               minEvictableIdleTimeMillis="300000"
               minIdle="30"
               name="jdbc/cop290db"
-              password="././././"
+              password="cop290@pankaj"
               removeAbandoned="true"
               removeAbandonedTimeout="60"
               testOnBorrow="true"
@@ -22,7 +22,7 @@
               timeBetweenEvictionRunsMillis="30000"
               type="javax.sql.DataSource"
               url="jdbc:mysql://localhost:3306/cop290db"
-              username="root"
+              username="cop290"
               validationInterval="30000"
               validationQuery="SELECT 1"/>
 </Context>

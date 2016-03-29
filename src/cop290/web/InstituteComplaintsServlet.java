@@ -17,9 +17,15 @@ import java.sql.Statement;
 
 /**
  * Created by pankaj on 23/3/16.
+ * This Servlet displays the summary of all the hostel level complaints in the current users hostel.
  */
 @WebServlet(urlPatterns = "/complaints/institute",name = "Institute Level Complaints")
 public class InstituteComplaintsServlet extends HttpServlet {
+    /*
+     * Accepts the get request. Parameters are
+     * @param resolved if 1 then resolved complaints only other wise unresolved
+     * if no parameters are passed, all complaints are displayed.
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         HttpSession session = request.getSession();
@@ -47,7 +53,11 @@ public class InstituteComplaintsServlet extends HttpServlet {
                 throw new ServletException(e);
             }
     }
-
+    /*
+     * Accepts the post request. Parameters are
+     * @param resolved if 1 then resolved complaints only other wise unresolved
+     * if no parameters are passed, all complaints are displayed.
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }

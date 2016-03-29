@@ -17,13 +17,20 @@ import java.sql.Statement;
 
 /**
  * Created by pankaj on 29/3/16.
+ * Returns the list of all users
+ * Accecible only to admin
  */
 @WebServlet(name = "ListUsersServlet",urlPatterns = "/users")
 public class ListUsersServlet extends HttpServlet {
+    /*
+     * Lists the name of all users to the admin
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
-
+    /*
+     * Lists the name of all users to the admin
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         HttpSession session = request.getSession();

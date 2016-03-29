@@ -26,6 +26,9 @@ public class tmpclass {
             e.printStackTrace();
         }
     }
+    public static String randomName(){
+        return ""+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt());
+    }
     private static final String server="jdbc:mysql://localhost/cop290db";
     /*
     public static void main(String argv[])throws Exception{
