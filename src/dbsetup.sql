@@ -112,34 +112,48 @@ CREATE TABLE Tag_Association(
   FOREIGN KEY (tag_id) REFERENCES Tags(tag_id)
 );
 
-#
+#May be used in future.
 CREATE TABLE Resolve_Association(
   group_id int,
   tag_id int,
   FOREIGN KEY (group_id) REFERENCES User_Groups(group_id),
   FOREIGN KEY (tag_id) REFERENCES Tags(tag_id)
 );
+
+#User id linked with complained id. For future use on GCM.
 CREATE TABLE User_Follow(
   user_id int,
   complaint_id int,
   FOREIGN KEY (user_id) REFERENCES Users(user_id),
   FOREIGN KEY (complaint_id) REFERENCES Complaints(complaint_id)
 );
+
+
 CREATE UNIQUE INDEX UPC ON Upvotes(complaint_id, user_id);
 CREATE UNIQUE INDEX DPC ON Downvotes(complaint_id, user_id);
 CREATE UNIQUE INDEX lin ON Users(login);
+
+#User Groups Specified
 INSERT INTO User_Groups(name) VALUES ('admin');
 INSERT INTO User_Groups(name) VALUES ('faculty');
 INSERT INTO User_Groups(name) VALUES ('btech');
 INSERT INTO User_Groups(name) VALUES ('mtech');
+
+#Department names and codes specified
 INSERT INTO Departments(name, code) VALUES ('Computer Science','CSE');
+
+#Hostel names with id's
 INSERT INTO Hostels(name) VALUES ('Udaigiri');
 INSERT INTO Hostels(name) VALUES ('Vindhyachal');
 INSERT INTO Hostels(name) VALUES ('Residential');
+
+#Tag names with id's
 INSERT INTO Tags(tag_name) VALUES ('Mess');
 INSERT INTO Tags(tag_name) VALUES ('Electrical Appliances');
 INSERT INTO Tags(tag_name) VALUES ('LAN');
 INSERT INTO Tags(tag_name) VALUES ('Bathroom');
+
+#Users for testing purposes
 INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES (1,'Pankaj','Kumar','pankaj','cop290',1,1,'2014CS10245');
 INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES (4,'Rishubh','Singh','2014CS50293','prqesf',1,2,'2014CS50293');
 INSERT INTO Users(group_id, first_name, last_name, login, password, department_id, hostel_id, entry_number) VALUES (3,'Kritarth','','kritarth','pspspdf',1,1,'2014CS10230');
