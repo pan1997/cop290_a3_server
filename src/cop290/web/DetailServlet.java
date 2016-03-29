@@ -25,7 +25,7 @@ import java.util.Enumeration;
 @WebServlet(name = "Complaint Details",urlPatterns = "/complaints/details/*")
 public class DetailServlet extends HttpServlet {
     /*
-     * Servlet takes the action to perform(may be multiple) performs the action and then relodas
+     * Servlet takes the action to perform(may be multiple) via GET performs the action and then relodas
      * If there are no actions, no relaoding is done.
      * It displays Comments upvotes and downvotes also.
      * Resolving permisssion is determined as folloows
@@ -177,7 +177,15 @@ public class DetailServlet extends HttpServlet {
             }
         }
     }
-
+    /*
+     * Servlet takes the action to perform(may be multiple) via POST performs the action and then relodas
+     * If there are no actions, no relaoding is done.
+     * It displays Comments upvotes and downvotes also.
+     * Resolving permisssion is determined as folloows
+     * Admin can resolve anything.
+     * Indivdual Complaints can be resolved only by submitter
+     * Hostel complaints by the warden of the hostel
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }

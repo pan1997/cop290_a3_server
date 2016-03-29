@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Created by Pankaj on 23/3/16
  * Servlet implementation class Logout
  */
 @WebServlet(name="Logout",urlPatterns = "/logout")
