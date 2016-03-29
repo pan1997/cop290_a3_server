@@ -18,13 +18,20 @@ import java.util.Enumeration;
 
 /**
  * Created by pankaj on 25/3/16.
- * This Servlet displays the details of the
+ * This Servlet displays the details of the complaint including number of upvotes and downvotes and comments
+ * It also aloows the user to upvote or donvote or comment or resolve if he/she has the appropriate permission
+ * After the action it reload the page with new information.
  */
 @WebServlet(name = "Complaint Details",urlPatterns = "/complaints/details/*")
 public class DetailServlet extends HttpServlet {
     /*
-     * Servlet parameters
-     * title,tags,detail,level,...
+     * Servlet takes the action to perform(may be multiple) performs the action and then relodas
+     * If there are no actions, no relaoding is done.
+     * It displays Comments upvotes and downvotes also.
+     * Resolving permisssion is determined as folloows
+     * Admin can resolve anything.
+     * Indivdual Complaints can be resolved only by submitter
+     * Hostel complaints by the warden of the hostel
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
