@@ -41,7 +41,7 @@ public class DetailServlet extends HttpServlet {
                 if (complaintId.indexOf('?') != -1)
                     complaintId = complaintId.substring(0, complaintId.indexOf('?'));
             }
-            System.out.println("ComplaintID " + complaintId);
+            //System.out.println("ComplaintID " + complaintId);
             JsonArrayBuilder jbl = Json.createArrayBuilder();
             try {
                 Connection c = tmpclass.ds.getConnection();
@@ -109,6 +109,26 @@ public class DetailServlet extends HttpServlet {
                                     case "downvote":
                                         smt.execute("INSERT INTO Downvotes VALUES (" + complaintId + "," + user.getInt("user_id") + ")");
                                         break;
+                                    case "resolve":
+                                        boolean permission=false;
+                                        if(user.getInt("group_id")==1)
+                                            permission=true;
+                                        else if(complaint.getInt("level")==2&&complaint.getInt("user_id")==user.getInt("user_id"))
+                                            permission=true;
+                                        else if(complaint.getInt("level")==1){
+                                            ResultSet rst=smt.executeQuery("SELECT * FROM Hostel_Wardens " +
+                                                    "INNER JOIN Users ON Hostel_Wardens.hostel_id=Users.hostel_id " +
+                                                    "INNER JOIN Complaints ON Complaints.user_id=Users.user_id " +
+                                                    "WHERE complaint_id="+complaintId+" AND Hostel_Wardens.user_id="+user.getInt("user_id"));
+                                            if(rs.next())
+                                                permission=true;
+                                        }
+                                        else if(complaint.getInt("level")==0&&user.getInt("group_id")==2)
+                                            permission=true;
+                                        if(permission)
+                                            smt.execute("UPDATE Complaints SET status=1 WHERE complaint_id="+complaintId);
+                                        else response.sendError(403);
+                                        break;
                                     case "comment":
                                         String cmnt = request.getParameter("comment");
                                         smt.execute("INSERT INTO Comments(user_id, complaint_id, detail, date_commented) VALUES (" + user.getInt("user_id") + "," + complaintId + ",'" + cmnt + "',NOW())");
@@ -122,9 +142,14 @@ public class DetailServlet extends HttpServlet {
                         } catch (SQLException s) {
                             s.printStackTrace();
                         }
-                    } else
-                        response.sendError(403, "Access Denied");
+                    } else {
+                        smt.close();
+                        c.close();
+                        response.sendError(403);
+                    }
                 } else {
+                    smt.close();
+                    c.close();
                     response.sendError(404, "Complaint contFound");
                 }
                 rs.close();

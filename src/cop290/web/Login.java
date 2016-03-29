@@ -21,6 +21,7 @@ public class Login extends HttpServlet {
         try {
             String name = request.getParameter("username");
             String password = request.getParameter("password");
+            System.out.println("Attempting Login via "+name+" "+password);
             HttpSession session=request.getSession();
             JsonObject user=tmpclass.getUserJson(name,password);
             if(user!=null)

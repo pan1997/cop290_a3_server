@@ -55,7 +55,7 @@ public class tmpclass {
     static JsonObject getUserJson(String login,String pass)throws SQLException {
         Connection conn = ds.getConnection();
         Statement stmt = conn.createStatement();
-        System.out.println("SELECT * FROM Users WHERE login='" + login + "' AND password='" + pass + "'");
+        //System.out.println("SELECT * FROM Users WHERE login='" + login + "' AND password='" + pass + "'");
         ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE login='" + login + "' AND password='" + pass + "'");
         JsonObject result;
         if(rs.next()) {
