@@ -17,13 +17,20 @@ import java.sql.Statement;
 
 /**
  * Created by pankaj on 29/3/16.
+ * Shows the list of all tags
  */
 @WebServlet(name = "TagListServlet",urlPatterns = "/tags")
 public class TagListServlet extends HttpServlet {
+    /*
+     * returns the list of all tags along with tagid
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
+    /*
+     * returns the list of all tags along with tagid
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         try {

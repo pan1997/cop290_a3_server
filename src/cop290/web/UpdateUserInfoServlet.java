@@ -14,13 +14,22 @@ import java.sql.Statement;
 
 /**
  * Created by pankaj on 29/3/16.
+ * Allows the user to change his user info including password
  */
 @WebServlet(name = "UpdateUserInfoServlet",urlPatterns = "/user/update")
 public class UpdateUserInfoServlet extends HttpServlet {
+    /*
+     * Accepts the get request parameters are the new values
+     * return success of the operation
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
 
+    /*
+     * Accepts the get request parameters are the new values
+     * return success of the operation
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         HttpSession session=request.getSession();
