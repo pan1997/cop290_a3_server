@@ -47,9 +47,10 @@
         </form>
         <%  }else if(request.getParameter("submit")!=null){%>
         <form action="/complaints/submit" method="GET">
-            Title:<input type="text" name="title">
-            Detail:<input type="text" name="detail">
-            Level:<input type="text" name="level">
+            <input type="text" placeholder="Title" name="title">
+            <input type="text" placeholder="Detail" name="detail">
+            <input type="text" placeholder="Level" name="level">
+            <input type="text" placeholder="Image" name="image">
             <button type="submit" id="submit">Submit</button>
         </form>
         <%}else if(request.getParameter("search")!=null){%>

@@ -19,16 +19,12 @@ public class tmpclass {
     public static void init(){
         if(init)
         try {
-            random=new Random();
             initialContext=new InitialContext();
             ds=(DataSource)initialContext.lookup("java:/comp/env/jdbc/cop290db");
         }catch (Exception e){
             System.out.println(e);
             e.printStackTrace();
         }
-    }
-    public static String randomName(){
-        return ""+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt())+Math.abs(random.nextInt());
     }
     private static final String server="jdbc:mysql://localhost/cop290db";
     /*

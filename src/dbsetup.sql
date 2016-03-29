@@ -1,19 +1,23 @@
+#This table stores the hostel id with name
 CREATE TABLE Hostels(
   hostel_id int AUTO_INCREMENT,
   name VARCHAR(255),
   PRIMARY KEY (hostel_id)
 );
+#This table stores Department id with name and code .. e.g. id:0 | name:Computer Science | code:CSE
 CREATE TABLE Departments(
   department_id int AUTO_INCREMENT,
   name VARCHAR(255),
   code VARCHAR(5),
   PRIMARY KEY (department_id)
 );
+#This table stores different user groups. Example: group_id:0 | name: Admin || group_id:1 | name: Faculty etc
 CREATE TABLE User_Groups(
   group_id int AUTO_INCREMENT,
   name VARCHAR(255),
   PRIMARY KEY (group_id)
 );
+#This table stores information about the signed up users
 CREATE TABLE Users(
   user_id int AUTO_INCREMENT,
   group_id int, #primary group
@@ -29,18 +33,24 @@ CREATE TABLE Users(
   FOREIGN KEY (department_id) REFERENCES Departments(department_id),
   FOREIGN KEY (hostel_id) REFERENCES Hostels(hostel_id)
 );
+
+#This table links the hostels with the user ids of their wardens
 CREATE TABLE Hostel_Wardens(
   hostel_id int,
   user_id int,
   FOREIGN KEY (hostel_id) REFERENCES Hostels(hostel_id),
   FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
+
+#This table links the HOD's of departments with the department id's
 CREATE TABLE Head_of_Departments(
   department_id int,
   user_id int,
   FOREIGN KEY (department_id) REFERENCES Departments(department_id),
   FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
+
+#This table stores the details of the complaints submitted
 CREATE TABLE Complaints(
   complaint_id int AUTO_INCREMENT,
   user_id int,
@@ -51,9 +61,13 @@ CREATE TABLE Complaints(
   date_resolved DATETIME,
   status int, #0 means unresolved
   level int, #0 means institute,1 hostel, 2 individual
+  image_loc int,
   PRIMARY KEY (complaint_id),
-  FOREIGN KEY (user_id) REFERENCES Users(user_id)
+  FOREIGN KEY (user_id) REFERENCES Users(user_id),
+  FOREIGN KEY (image_loc) REFERENCES Images(image_loc)
 );
+
+#This table stores the details about the comments including timestamp
 CREATE TABLE Comments(
   comment_id int AUTO_INCREMENT,
   user_id int,
@@ -64,29 +78,41 @@ CREATE TABLE Comments(
   FOREIGN KEY (user_id) REFERENCES Users(user_id),
   FOREIGN KEY (comment_id) REFERENCES Complaints(complaint_id)
 );
+
+#This table stores the complaint which is upvoted by a user.
+#If a user A upvotes Complaint C then the table stores C:A .
 CREATE TABLE Upvotes(
   complaint_id int,
   user_id int,
   FOREIGN KEY (complaint_id) REFERENCES Complaints(complaint_id),
   FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
+
+#This table stores the complaint which is downvoted by a user.
+#If a user A downvotes Complaint C then the table stores C:A .
 CREATE TABLE Downvotes(
   complaint_id int,
   user_id int,
   FOREIGN KEY (complaint_id) REFERENCES Complaints(complaint_id),
   FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
+
+#This links tag ids with tag names for searching purposes
 CREATE TABLE Tags(
   tag_id int AUTO_INCREMENT,
   tag_name VARCHAR(255),
   PRIMARY KEY (tag_id)
 );
+
+#This associates tag id's with complaint id's
 CREATE TABLE Tag_Association(
   complaint_id int,
   tag_id int,
   FOREIGN KEY (complaint_id) REFERENCES Complaints(complaint_id),
   FOREIGN KEY (tag_id) REFERENCES Tags(tag_id)
 );
+
+#
 CREATE TABLE Resolve_Association(
   group_id int,
   tag_id int,
