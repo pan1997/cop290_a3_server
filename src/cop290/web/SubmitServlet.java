@@ -25,7 +25,10 @@ public class SubmitServlet extends HttpServlet {
             String image=request.getParameter("image");
             if(image!=null){
                 try{
-                    String fnmae=tmpclass.random.
+                    String fnmae=tmpclass.randomName();
+
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
             HttpSession session=request.getSession();
